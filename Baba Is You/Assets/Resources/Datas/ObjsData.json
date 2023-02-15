@@ -1,0 +1,30 @@
+[
+ {
+  "id": 0,
+  "name": "o_baba",
+  "sprite_name": "baba_0_1",
+  "animator_name": "baba_0_1",
+  "animator_path": "Assets\/Resources\/Animations\/Objects\/baba\/baba_0_1.controller"
+ },
+ {
+  "id": 1,
+  "name": "t_baba",
+  "sprite_name": "text_baba_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Assets\/Resources\/Animations\/Text\/textAnim.controller"
+ },
+ {
+  "id": 2,
+  "name": "t_is",
+  "sprite_name": "text_is_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Assets\/Resources\/Animations\/Text\/textAnim.controller"
+ },
+ {
+  "id": 3,
+  "name": "t_you",
+  "sprite_name": "text_you_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Assets\/Resources\/Animations\/Text\/textAnim.controller"
+ }
+]
