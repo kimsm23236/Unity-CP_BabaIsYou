@@ -20,6 +20,7 @@ public class DataManager
         dicStgData = new Dictionary<int, StageData>();
         LoadObjsDatas();
         LoadAnimDatas();
+        LoadStageDatas();
     }
     public static DataManager Instance
     {

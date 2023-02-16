@@ -35,10 +35,28 @@ public class StageData
         sp.name = this.name;
         sp.row = this.row;
         sp.col = this.col;
-        string str = cells;
-
+        sp.objs = new string[row, col];
+        string temp = cells;
+        List<char> charToRemove = new List<char>() {'[', ']', '{', '}', ' '};
         
-
+        foreach(char c in charToRemove)
+        {
+            temp = temp.Replace(c.ToString(), string.Empty);
+        }
+        string[] sWord = temp.Split(",");
+        int idx = 0;
+        string LogLine = string.Empty;
+        for(int y = 0; y < row; y++)
+        {
+            for(int x = 0; x < col; x++)
+            {
+                sp.objs[y,x] = sWord[idx];
+                LogLine += sWord[idx] + " ";
+                idx++;
+            }
+            GFunc.Log($"{LogLine}");
+            LogLine = string.Empty;
+        }
         return sp;
     }
 }
@@ -48,5 +66,5 @@ public class StageProperty
     public string name;
     public int row;
     public int col;
-    public int[,] objs;
+    public string[,] objs;
 }

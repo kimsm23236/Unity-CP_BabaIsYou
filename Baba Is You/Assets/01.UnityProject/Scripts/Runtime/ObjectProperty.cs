@@ -21,8 +21,31 @@ public class ObjectProperty : MonoBehaviour
 {
     private Animator anim = default;
     private GridPosition position_ = default;
+    public GridPosition position
+    {
+        get
+        {
+            return position_;
+        }
+        set
+        {
+            position_ = value;
+        }
+    }
     private ObjectData data_ = default;
     private ObjectType type_ = default;
+    private int id_ = default;
+    public int id
+    {
+        get
+        {
+            return id_;
+        }
+        set
+        {
+            id_ = value;
+        }
+    }
 
     void Awake()
     {
@@ -33,9 +56,8 @@ public class ObjectProperty : MonoBehaviour
     void Start()
     {
         DataManager.Instance.ToString();
-        InitObject(0);
     }
-    public void InitObject(int id)
+    public void InitObject()
     {
         // 오브젝트 데이터 설정
         data_ = DataManager.Instance.dicObjData[id];
@@ -66,7 +88,7 @@ public class ObjectProperty : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            InitObject(1);
+            InitObject();
         }
     }
 }
