@@ -12,6 +12,11 @@ public enum ObjectType
     NONE = -1,
     Object, Text
 }
+public enum TextType
+{
+    NONE = -1,
+    Object, Verb, Attribute
+}
 public class GridPosition
 {
     public int x = default;
@@ -19,6 +24,13 @@ public class GridPosition
 }
 public class ObjectProperty : MonoBehaviour
 {
+    public string Name
+    {
+        get
+        {
+            return data_.name;
+        }
+    }
     private Animator anim = default;
     private GridPosition position_ = default;
     public GridPosition position
@@ -33,7 +45,23 @@ public class ObjectProperty : MonoBehaviour
         }
     }
     private ObjectData data_ = default;
-    private ObjectType type_ = default;
+    private ObjectType oType_ = default;
+    public ObjectType objectType
+    {
+        get
+        {
+            return oType_;
+        }
+    }
+    private TextType tType_ = default;
+    public TextType textType
+    {
+        get
+        {
+            return tType_;
+        }
+    }
+    private int taggedId = -1;
     private int id_ = default;
     public int id
     {
@@ -63,22 +91,40 @@ public class ObjectProperty : MonoBehaviour
         data_ = DataManager.Instance.dicObjData[id];
         GFunc.Log($"data : {data_.name}");
         // 데이터의 이름으로 타입과 애니메이션을 설정
-        switch(data_.name[0])
+        switch(data_.otype)
         {
-            case 'o':
-            type_ = ObjectType.Object;
+            case "o":
+            oType_ = ObjectType.Object;
             anim.runtimeAnimatorController = DataManager.Instance.dicObjAnimData[data_.name];
             anim.SetInteger("Direction", (int)Direction.Right);
             break;
-            case 't':
-            type_ = ObjectType.Text;
+            case "t":
+            oType_ = ObjectType.Text;
             anim.runtimeAnimatorController = DataManager.Instance.toAnimData;
             anim.SetInteger("id", data_.id);
             break;
             default:
-            type_ = ObjectType.NONE;
             break;
         }
+        switch(data_.ttype)
+        {
+            case "n":
+            tType_ = TextType.NONE;
+            break;
+            case "o":
+            tType_ = TextType.Object;
+            break;
+            case "v":
+            tType_ = TextType.Verb;
+            break;
+            case "a":
+            tType_ = TextType.Attribute;
+            break;
+            default:
+            tType_ = TextType.NONE;
+            break;
+        }
+        taggedId = data_.tag;
     }
     void Update()
     {
@@ -90,5 +136,13 @@ public class ObjectProperty : MonoBehaviour
         {
             InitObject();
         }
+    }
+    public bool IsVerb()
+    {
+        return tType_ == TextType.Verb;
+    }
+    public bool IsTextType()
+    {
+        return oType_ == ObjectType.Text;
     }
 }

@@ -6,6 +6,13 @@ public class ObjectController : MonoBehaviour
 {
     private GameObject gameObjPrefab = default;
     private List<GameObject> objectPool = default;
+    public List<GameObject> Pool
+    {
+        get
+        {
+            return objectPool;
+        }
+    }
     private GridController gridController = default;
 
     // Start is called before the first frame update

@@ -9,6 +9,7 @@ public class DataManager
     private static DataManager instance_;
 
     public Dictionary<int, ObjectData> dicObjData;
+    public Dictionary<int, AttributeData> dicAtrData;
     public Dictionary<string, RuntimeAnimatorController> dicObjAnimData;
     public Dictionary<int, StageData> dicStgData;
     public RuntimeAnimatorController toAnimData;
@@ -16,9 +17,11 @@ public class DataManager
     private DataManager()
     {
         dicObjData = new Dictionary<int, ObjectData>();
+        dicAtrData = new Dictionary<int, AttributeData>();
         dicObjAnimData = new Dictionary<string, RuntimeAnimatorController>();
         dicStgData = new Dictionary<int, StageData>();
         LoadObjsDatas();
+        LoadAtrsDatas();
         LoadAnimDatas();
         LoadStageDatas();
     }
@@ -36,16 +39,22 @@ public class DataManager
 
     public void LoadObjsDatas()
     {
-        var json = Resources.Load<TextAsset>("Datas/ObjsData").text;
+        var json = Resources.Load<TextAsset>("Datas/ObjsData_v2").text;
         var arrObjDatas = JsonConvert.DeserializeObject<ObjectData[]>(json);
         this.dicObjData = arrObjDatas.ToDictionary(x => x.id);
+    }
+    public void LoadAtrsDatas()
+    {
+        var json = Resources.Load<TextAsset>("Datas/AtrData").text;
+        var arrAtrDatas = JsonConvert.DeserializeObject<AttributeData[]>(json);
+        this.dicAtrData = arrAtrDatas.ToDictionary(x => x.id);
     }
     public void LoadAnimDatas()
     {
         for(int i = 0 ; i < dicObjData.Count; i++)
         {
             ObjectData od = dicObjData[i];
-            if(od.name[0] == 'o')
+            if(od.otype == "o")
             {
                 RuntimeAnimatorController anim = (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Animations/Objects/baba/baba_0_1", typeof(RuntimeAnimatorController)));
     

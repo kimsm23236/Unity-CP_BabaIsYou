@@ -15,9 +15,17 @@ public class ObjectData
 {
     public int id;
     public string name;
+    public string otype;
+    public string ttype;
     public string sprite_name;
     public string animator_name;
     public string animator_path;
+    public int tag;
+}
+public class AttributeData
+{
+    public int id;
+    public string name;
 }
 
 public class StageData
