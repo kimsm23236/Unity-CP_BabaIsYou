@@ -75,15 +75,19 @@ public class ObjectProperty : MonoBehaviour
         }
     }
 
+    private List<Attribute> atrArr = default;
+
     void Awake()
     {
         anim = gameObject.GetComponentMust<Animator>();
         anim.enabled = false;
         anim.enabled = true;
+        atrArr = new List<Attribute>();
     }
     void Start()
     {
         DataManager.Instance.ToString();
+        
     }
     public void InitObject()
     {
@@ -129,12 +133,20 @@ public class ObjectProperty : MonoBehaviour
     void Update()
     {
         InitTest();
+        foreach(Attribute atr in atrArr)
+        {
+            atr.Execute();
+        }
     }
     public void InitTest()
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
             InitObject();
+        }
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            AddAttribute(0);
         }
     }
     public bool IsVerb()
@@ -144,5 +156,20 @@ public class ObjectProperty : MonoBehaviour
     public bool IsTextType()
     {
         return oType_ == ObjectType.Text;
+    }
+    public void AddAttribute(int atrId)
+    {
+        Attribute atr = default;
+        // 속성 추가할 때 마다 추가작성
+        switch(atrId)
+        {
+            case 0:
+            atr = new AtrYou();
+            break;
+            default:
+            break;
+        }
+        atr.Attached(gameObject);
+        atrArr.Add(atr);
     }
 }
