@@ -60,12 +60,17 @@ public class ObjectController : MonoBehaviour
                     GameObject newObj = Instantiate(gameObjPrefab, transform);
                     newObj.transform.SetParent(gameObject.transform);
                     newObj.SetActive(true);
+                    // movePoint = gameObject.FindChildObj("MovePoint").transform;
+                    // movePoint.parent = GFunc.GetRootObj("GameObjs").FindChildObj("Grid").transform;
                     ObjectProperty opc = newObj.GetComponentMust<ObjectProperty>();
+                    opc.movePoint = newObj.FindChildObj("MovePoint").transform;
+                    opc.movePoint.SetParent(gridController.transform);
                     GridPosition pos = new GridPosition();
                     pos.x = x;
                     pos.y = y;
                     opc.id = id;
                     opc.position = pos;
+                    opc.movePoint.position = gridController.gridObjs[y, x].position;
                     objectPool.Add(newObj);
                 }
             }
@@ -114,5 +119,18 @@ public class ObjectController : MonoBehaviour
 
         }
         return isSuccessExecute;
+    }
+    public List<ObjectProperty> GetObjPropByPos(GridPosition pos)
+    {
+        List<ObjectProperty> objProps = new List<ObjectProperty>();
+        foreach(GameObject obj in objectPool)
+        {
+            ObjectProperty opc = obj.GetComponentMust<ObjectProperty>();
+            if(opc.position == pos)
+            {
+                objProps.Add(opc);
+            }
+        }
+        return objProps;
     }
 }

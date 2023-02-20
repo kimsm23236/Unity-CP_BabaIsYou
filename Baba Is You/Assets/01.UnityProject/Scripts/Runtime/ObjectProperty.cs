@@ -53,6 +53,18 @@ public class ObjectProperty : MonoBehaviour
             position_ = value;
         }
     }
+    private Direction direction_ = Direction.Right;
+    public Direction direction
+    {
+        get
+        {
+            return direction_;
+        }
+        set
+        {
+            direction_ = value;
+        }
+    }
     private ObjectData data_ = default;
     private ObjectType oType_ = default;
     public ObjectType objectType
@@ -91,6 +103,8 @@ public class ObjectProperty : MonoBehaviour
         }
     }
 
+    public Transform movePoint = default;
+
     #region Attribute Member
     private List<Attribute> atrArr = default;
     public List<Attribute> attributes
@@ -127,6 +141,19 @@ public class ObjectProperty : MonoBehaviour
         }
         return isSuccessFind;
     }
+
+    public Attribute GetAttribute(int id)
+    {
+        foreach(Attribute atr in atrArr)
+        {
+            if(atr.property_.id == id)
+            {
+                return atr;
+            }
+        }
+
+        return default;
+    }
     #endregion
 
     void Awake()
@@ -158,6 +185,8 @@ public class ObjectProperty : MonoBehaviour
             oType_ = ObjectType.Text;
             anim.runtimeAnimatorController = DataManager.Instance.toAnimData;
             anim.SetInteger("id", data_.id);
+            // Text 블록일 경우 기본으로 Push속성을 가지고 있음
+            AddAttribute(3);
             break;
             default:
             break;
@@ -220,6 +249,11 @@ public class ObjectProperty : MonoBehaviour
             break;
             case 1:
             atr = new AtrWin();
+            break;
+            case 2:
+            break;
+            case 3:
+            atr = new AtrPush();
             break;
             default:
             break;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AtrWin : Attribute
 {
-    List<GameObject> objectPool = default; 
+    
     public AtrWin()
     {
         AttributeData atrData = DataManager.Instance.dicAtrData[1];
@@ -15,9 +15,7 @@ public class AtrWin : Attribute
     }
     public override void Attached(GameObject gObj_)
     {
-        owner = gObj_;
-        GameObject gameObj = GFunc.GetRootObj("GameObjs");
-        objectPool = gameObj.FindChildObj("ObjectController").GetComponentMust<ObjectController>().Pool;
+        base.Attached(gObj_);
     }
     public override void Execute()
     {

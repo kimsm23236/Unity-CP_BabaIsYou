@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class AtrYou : Attribute
 {
-    private float moveSpeed = 1000f;
-    public GridController gridController = default;
-    public Transform movePoint = default;
-    public GridPosition position_ = default;
+    private GridController gridController = default;
+    private ObjectController objectController = default;
     public LayerMask whatStopMovement = default;
     public AtrYou()
     {
@@ -19,44 +17,48 @@ public class AtrYou : Attribute
     }
     public override void Attached(GameObject gObj_)
     {
-        owner = gObj_;
+        base.Attached(gObj_);
         GameObject gameObj = GFunc.GetRootObj("GameObjs");
         gridController = gameObj.FindChildObj("Grid").GetComponentMust<GridController>();
-        movePoint = gObj_.FindChildObj("MovePoint").transform;
-        movePoint.parent = gridController.transform;
-        position_ = owner.GetComponentMust<ObjectProperty>().position;
+        objectController = gameObj.FindChildObj("ObjectController").GetComponentMust<ObjectController>();
     }
     public override void Execute()
     {
-        Move();
+        base.Execute();
+        KeyInput();
     }
-    private void Move()
+    private void KeyInput()
     {
-        owner.transform.position = Vector3.MoveTowards(owner.transform.position, movePoint.position, moveSpeed * Time.deltaTime);
         if(Vector3.Distance(owner.transform.position, movePoint.position) <= 0.05f)
         {
+            Direction nextDirection = Direction.Right;
             int nextX = position_.x;
             int nextY = position_.y;
             if(Input.GetKeyDown(KeyCode.RightArrow))
             {
+                nextDirection = Direction.Right;
                 nextX = position_.x + 1;
                 nextY = position_.y;
             }
             else if(Input.GetKeyDown(KeyCode.LeftArrow))
             {
+                nextDirection = Direction.Left;
                 nextX = position_.x - 1;
                 nextY = position_.y;
             }
             else if(Input.GetKeyDown(KeyCode.UpArrow))
             {
+                nextDirection = Direction.Up;
                 nextX = position_.x;
                 nextY = position_.y - 1;
             }
             else if(Input.GetKeyDown(KeyCode.DownArrow))
             {
+                nextDirection = Direction.Down;
                 nextX = position_.x;
                 nextY = position_.y + 1;
             }
+            owner.GetComponentMust<ObjectProperty>().direction = nextDirection;
             if(MoveCheck(nextX, nextY))
             {
                 position_.x = nextX;
@@ -91,6 +93,29 @@ public class AtrYou : Attribute
             isAbleToMove = false;
         if(nextY < 0 || nextY >= gridController.gridData.height_)
             isAbleToMove = false;
+
+        // 오브젝트 체크 stop
+        GridPosition pos = new GridPosition();
+        pos.x = nextX;
+        pos.y = nextY;
+        List<ObjectProperty> collisionObjs = objectController.GetObjPropByPos(pos);
+
+        // 오브젝트 체크 push
+        foreach(ObjectProperty objProp in collisionObjs)
+        {
+            if(objProp.FindAttribute(2))
+            {
+                return false;
+            }
+            else if(objProp.FindAttribute(3))
+            {
+                AtrPush next = objProp.GetAttribute(3) as AtrPush;
+                if(!next.IsPushed(owner.GetComponentMust<ObjectProperty>().direction)) // push 속성을 가지고 있으나 밀지 못하는 경우
+                {
+                    return false;
+                }
+            }
+        }
 
         return isAbleToMove;
     }
