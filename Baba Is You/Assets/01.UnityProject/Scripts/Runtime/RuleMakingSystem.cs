@@ -192,6 +192,7 @@ public class RuleMakingSystem : MonoBehaviour
             {
                 ruleString += (rule[i].Name + " ");
             }
+            objectController.onExecuteRule(rule);
             GFunc.Log($"Rule : {ruleString}");
         }
     }

@@ -39,7 +39,7 @@ public class DataManager
 
     public void LoadObjsDatas()
     {
-        var json = Resources.Load<TextAsset>("Datas/ObjsData_v2").text;
+        var json = Resources.Load<TextAsset>("Datas/ObjsData_v3").text;
         var arrObjDatas = JsonConvert.DeserializeObject<ObjectData[]>(json);
         this.dicObjData = arrObjDatas.ToDictionary(x => x.id);
     }
@@ -54,9 +54,11 @@ public class DataManager
         for(int i = 0 ; i < dicObjData.Count; i++)
         {
             ObjectData od = dicObjData[i];
+            string animatorPath = dicObjData[i].animator_path;
             if(od.otype == "o")
             {
-                RuntimeAnimatorController anim = (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Animations/Objects/baba/baba_0_1", typeof(RuntimeAnimatorController)));
+                GFunc.Log($"path is [{animatorPath}]");
+                RuntimeAnimatorController anim = (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load(animatorPath, typeof(RuntimeAnimatorController)));
     
                 dicObjAnimData.Add(od.name, anim);
             }

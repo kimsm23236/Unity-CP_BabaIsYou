@@ -1,0 +1,72 @@
+[
+ {
+  "id": 0,
+  "name": "baba",
+  "otype": "o",
+  "ttype": "n",
+  "sprite_name": "baba_0_1",
+  "animator_name": "baba_0_1",
+  "animator_path": "Animations/Objects/baba/baba_0_1",
+  "tag": -1
+ },
+ {
+  "id": 1,
+  "name": "flag",
+  "otype": "o",
+  "ttype": "n",
+  "sprite_name": "flag_0_1",
+  "animator_name": "flag_0_1",
+  "animator_path": "Animations/Objects/flag_0_1",
+  "tag": -1
+ },
+ {
+  "id": 2,
+  "name": "baba",
+  "otype": "t",
+  "ttype": "o",
+  "sprite_name": "text_baba_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Assets\/Resources\/Animations\/Text\/textAnim.controller",
+  "tag": 0
+ },
+ {
+  "id": 3,
+  "name": "flag",
+  "otype": "t",
+  "ttype": "o",
+  "sprite_name": "text_flag_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Assets\/Resources\/Animations\/Text\/text_flag.anim",
+  "tag": 1
+ },
+ {
+  "id": 4,
+  "name": "is",
+  "otype": "t",
+  "ttype": "v",
+  "sprite_name": "text_is_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Assets\/Resources\/Animations\/Text\/textAnim.controller",
+  "tag": -1
+ },
+ {
+  "id": 5,
+  "name": "you",
+  "otype": "t",
+  "ttype": "a",
+  "sprite_name": "text_you_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Assets\/Resources\/Animations\/Text\/textAnim.controller",
+  "tag": 0
+ },
+ {
+  "id": 6,
+  "name": "win",
+  "otype": "t",
+  "ttype": "a",
+  "sprite_name": "text_win_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Assets\/Resources\/Animations\/Text\/text_win.anim",
+  "tag": 1
+ }
+]

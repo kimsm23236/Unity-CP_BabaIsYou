@@ -12,14 +12,30 @@ public class AttributeProperty
     public string name = default;
     public int priority = default;
 }
-public abstract class Attribute
+public class Attribute
 {
     public GameObject owner = default;
     public AttributeProperty property_ = default;
-    public delegate void EventHandler(GameObject gObj_);
-    public delegate bool bEventHandler(GameObject gObj_);
-    public EventHandler onOverlapEvent;
-    public bEventHandler onCollisionEvent;
-    public abstract void Attached(GameObject gObj_);
-    public abstract void Execute();
+    public List<ObjectProperty> overlaps = default;
+    public virtual void Attached(GameObject gObj_)
+    {
+        /* Do nothing */
+    }
+    public virtual void Execute()
+    {
+        /* Do nothing */
+    }
+    public virtual void OnOverlap()
+    {
+        GridPosition ownerPos = owner.GetComponentMust<ObjectProperty>().position;
+        ObjectController occ = GFunc.GetRootObj("GameObjs").FindChildObj("ObjectController").GetComponentMust<ObjectController>();
+        overlaps = new List<ObjectProperty>();
+        foreach(GameObject obj in occ.Pool)
+        {
+            if(obj.GetComponentMust<ObjectProperty>().position == ownerPos)
+            {
+                overlaps.Add(obj.GetComponentMust<ObjectProperty>());
+            }
+        }
+    }
 }

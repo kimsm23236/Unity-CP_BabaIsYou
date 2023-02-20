@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.Linq;
+
 public class ObjectController : MonoBehaviour
 {
     private GameObject gameObjPrefab = default;
@@ -15,6 +17,11 @@ public class ObjectController : MonoBehaviour
     }
     private GridController gridController = default;
 
+    // EventHandler
+    public delegate bool bEventHandler_Rule(List<ObjectProperty> rule);
+    public bEventHandler_Rule onExecuteRule;
+    //
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +30,8 @@ public class ObjectController : MonoBehaviour
         gameObjPrefab = gameObject.FindChildObj("Object");
         gameObjPrefab.SetActive(false);
         objectPool = new List<GameObject>();
+
+        onExecuteRule = new bEventHandler_Rule(ExecuteRule);
     }
 
     // Update is called once per frame
@@ -76,4 +85,34 @@ public class ObjectController : MonoBehaviour
 
     }
     // } stage load process
+
+    public bool ExecuteRule(List<ObjectProperty> rule)
+    {
+        // 속성의 종류가 늘어날때마다 수정해야할것같음
+        bool isSuccessExecute = true;
+
+
+        // rule의 마지막이 속성인지 오브젝트인지 체크
+        bool isAtr = rule.Last().textType == TextType.Attribute;
+        if(isAtr)   // 속성인 경우
+        {
+            // rule의 첫번째 id값이 가르키는 오브젝트에 속성id값에따라 속성 추가
+            foreach(GameObject obj in objectPool)
+            {
+                ObjectProperty opc = obj.GetComponentMust<ObjectProperty>();
+                
+                // TagId 룰에서 주어가 가리키는 오브젝트의 id 
+                if(rule[0].TagId == opc.id)
+                {
+                    // TagId 목적어인 속성의 id를 가리킴
+                    opc.AddAttribute(rule.Last().TagId);
+                }      
+            }
+        }
+        else    // 오브젝트인 경우
+        {
+
+        }
+        return isSuccessExecute;
+    }
 }

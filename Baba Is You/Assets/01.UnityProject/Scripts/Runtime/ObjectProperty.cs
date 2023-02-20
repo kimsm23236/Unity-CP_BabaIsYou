@@ -21,6 +21,15 @@ public class GridPosition
 {
     public int x = default;
     public int y = default;
+
+    public static bool operator ==(GridPosition a, GridPosition b)
+    {
+        return a.x == b.x && a.y == b.y;
+    }
+    public static bool operator !=(GridPosition a, GridPosition b)
+    {
+        return a.x != b.x || a.y != b.y;
+    }
 }
 public class ObjectProperty : MonoBehaviour
 {
@@ -62,6 +71,13 @@ public class ObjectProperty : MonoBehaviour
         }
     }
     private int taggedId = -1;
+    public int TagId
+    {
+        get
+        {
+            return taggedId;
+        }
+    }
     private int id_ = default;
     public int id
     {
@@ -75,7 +91,43 @@ public class ObjectProperty : MonoBehaviour
         }
     }
 
+    #region Attribute Member
     private List<Attribute> atrArr = default;
+    public List<Attribute> attributes
+    {
+        get
+        {
+            return atrArr;
+        }
+    }
+
+    public bool FindAttribute(int id)
+    {
+        bool isSuccessFind = false;
+        foreach(Attribute atr in atrArr)
+        {
+            if(id == atr.property_.id)
+            {
+                isSuccessFind = true;
+                break;
+            }
+        }
+        return isSuccessFind;
+    }
+    public bool FindAttribute(string name)
+    {
+        bool isSuccessFind = false;
+        foreach(Attribute atr in atrArr)
+        {
+            if(name == atr.property_.name)
+            {
+                isSuccessFind = true;
+                break;
+            }
+        }
+        return isSuccessFind;
+    }
+    #endregion
 
     void Awake()
     {
@@ -165,6 +217,9 @@ public class ObjectProperty : MonoBehaviour
         {
             case 0:
             atr = new AtrYou();
+            break;
+            case 1:
+            atr = new AtrWin();
             break;
             default:
             break;
