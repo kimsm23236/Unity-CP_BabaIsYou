@@ -70,10 +70,13 @@ public class AtrYou : Attribute
             }
             if(MoveCheck(nextX, nextY))
             {
-                position_.x = nextX;
-                position_.y = nextY;
+                //position_.x = nextX;
+                //position_.y = nextY;
+                // send command
+                ICommand movement = new Move(nextDirection, position_, movePoint, gridController.gridObjs);
+                ownerOmc.AddCommand(movement);
             }
-            movePoint.position = gridController.gridObjs[position_.y, position_.x].transform.position;
+            // movePoint.position = gridController.gridObjs[position_.y, position_.x].transform.position;
 
             /* Legacy code
             if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
@@ -107,6 +110,9 @@ public class AtrYou : Attribute
         GridPosition pos = new GridPosition();
         pos.x = nextX;
         pos.y = nextY;
+        if(position_ == pos)
+            return false;
+
         List<ObjectProperty> collisionObjs = objectController.GetObjPropByPos(pos);
 
         // 오브젝트 체크 push

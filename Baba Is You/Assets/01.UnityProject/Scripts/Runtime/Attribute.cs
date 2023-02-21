@@ -17,6 +17,8 @@ public class Attribute
     private float moveSpeed = 1000f;
     public GameObject owner = default;
     private ObjectProperty ownerOpc = default;
+    [SerializeField]
+    public ObjectMovement ownerOmc = default;
     public AttributeProperty property_ = default;
     public List<ObjectProperty> overlaps = default;
     protected List<GameObject> objectPool = default; 
@@ -26,6 +28,7 @@ public class Attribute
     {
         owner = gObj_;
         ownerOpc = gObj_.GetComponentMust<ObjectProperty>();
+        ownerOmc = gObj_.GetComponentMust<ObjectMovement>();
         position_ = ownerOpc.position;
         movePoint = ownerOpc.movePoint;
         GameObject gameObj = GFunc.GetRootObj("GameObjs");
