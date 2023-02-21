@@ -13,6 +13,14 @@ public class RuleMakingSystem : MonoBehaviour
     private List<List<ObjectProperty>> prevRules = default;
     private List<List<ObjectProperty>> tempRules = default;
     private List<ObjectProperty> makedRule = default;
+    private bool isUpdateRule = default;
+
+    private int gridWidth_ = default;
+    private int gridHeight_ = default;
+
+    public delegate void EventHandler();
+    public EventHandler onRuleCheck;
+    public EventHandler onUpdateRule;
     // Start is called before the first frame update
     void Awake()
     {
@@ -22,11 +30,14 @@ public class RuleMakingSystem : MonoBehaviour
         makedRule = new List<ObjectProperty>();
         GameObject gameObjs = GFunc.GetRootObj("GameObjs");
         objectController = gameObjs.FindChildObj("ObjectController").GetComponentMust<ObjectController>();
+
     }
     void Start()
     {
         listTextObj = new List<ObjectProperty>();
         listVerb = new List<ObjectProperty>();
+        onRuleCheck = new EventHandler(RuleCheck);
+        onUpdateRule += () => isUpdateRule = true;
     }
 
     // Update is called once per frame
@@ -35,12 +46,16 @@ public class RuleMakingSystem : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.A))
         {
             UpdateList();
-            InitTObjArray(5,5);
+            curLevelGridData = GFunc.GetRootObj("GameObjs").FindChildObj("Grid").GetComponentMust<GridController>().gridData;
+            gridWidth_ = curLevelGridData.width_;
+            gridHeight_ = curLevelGridData.height_;
         }
         if(Input.GetKeyDown(KeyCode.R))
         {
             RuleCheck();
         }
+        // 임시 룰 체킹 * 느려짐
+        UpdateRuleCheck();
     }
     public void UpdateList()
     {
@@ -86,9 +101,9 @@ public class RuleMakingSystem : MonoBehaviour
         }
         return newList;
     }
-    void InitTObjArray(int width, int height)
+    void InitTObjArray()
     {
-        textObjArr = new ObjectProperty[height, width];
+        textObjArr = new ObjectProperty[gridHeight_, gridWidth_];
         foreach(ObjectProperty tObj in listTextObj)
         {
             int x = tObj.position.x;
@@ -98,12 +113,12 @@ public class RuleMakingSystem : MonoBehaviour
     }
     public void RuleCheck()
     {
+        InitTObjArray();
         // 2차원 텍스트 오브젝트 배열 돌면서 오브젝트 타입을 만나면 DFS로 룰 검사
-        for(int x = 0; x < textObjArr.GetLength(0) - 2; x++)
+        for(int x = 0; x < textObjArr.GetLength(1); x++)
         {
-            for(int y = 0; y < textObjArr.GetLength(1) - 2; y++)
+            for(int y = 0; y < textObjArr.GetLength(0); y++)
             {
-                GFunc.Log($"y : {y}");
                 // Debug.Log($"checking ... -> TextObject : {textObjArr[y,x].Name}");
                 if(textObjArr[y,x] == null || textObjArr[y,x] == default)
                     continue;
@@ -184,6 +199,7 @@ public class RuleMakingSystem : MonoBehaviour
     }
     void ApplyRule()
     {
+        objectController.AllObjAttributeReset();
         currentRules = tempRules;
         foreach(List<ObjectProperty> rule in currentRules)
         {
@@ -195,5 +211,14 @@ public class RuleMakingSystem : MonoBehaviour
             objectController.onExecuteRule(rule);
             GFunc.Log($"Rule : {ruleString}");
         }
+        tempRules = new List<List<ObjectProperty>>();
+    }
+    void UpdateRuleCheck()
+    {
+        if(!isUpdateRule)
+            return;
+        isUpdateRule = false;
+        RuleCheck();
     }
 }
+

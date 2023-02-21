@@ -79,6 +79,7 @@ public class GridController : MonoBehaviour
         gridData = new GridData();
         gridData.width_ = stageProperty.col;
         gridData.height_ = stageProperty.row;
+        GFunc.Log($"width : {gridData.width_}, height : {gridData.height_}");
         grid_ = new Grid(gridData.width_, gridData.height_);
         // 일단 그리드 디버그 오브젝트 생성까지 한번에, 나중에 바꿔야됨
         cachedGridObjs = new Transform[gridData.height_, gridData.width_];

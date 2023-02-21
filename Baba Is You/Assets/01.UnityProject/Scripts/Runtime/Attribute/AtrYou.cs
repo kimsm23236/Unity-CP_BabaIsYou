@@ -6,6 +6,7 @@ public class AtrYou : Attribute
 {
     private GridController gridController = default;
     private ObjectController objectController = default;
+    private RuleMakingSystem rms = default;
     public LayerMask whatStopMovement = default;
     public AtrYou()
     {
@@ -21,6 +22,7 @@ public class AtrYou : Attribute
         GameObject gameObj = GFunc.GetRootObj("GameObjs");
         gridController = gameObj.FindChildObj("Grid").GetComponentMust<GridController>();
         objectController = gameObj.FindChildObj("ObjectController").GetComponentMust<ObjectController>();
+        rms = GFunc.GetRootObj("TempRMS").GetComponentMust<RuleMakingSystem>();
     }
     public override void Execute()
     {
@@ -59,6 +61,13 @@ public class AtrYou : Attribute
                 nextY = position_.y + 1;
             }
             owner.GetComponentMust<ObjectProperty>().direction = nextDirection;
+            GridPosition nextPos = new GridPosition();
+            nextPos.x = nextX;
+            nextPos.y = nextY;
+            if(position_ != nextPos)
+            {
+                rms.onUpdateRule();
+            }
             if(MoveCheck(nextX, nextY))
             {
                 position_.x = nextX;

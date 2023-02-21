@@ -16,8 +16,10 @@ public class ObjectController : MonoBehaviour
         }
     }
     private GridController gridController = default;
+    
 
     // EventHandler
+    
     public delegate bool bEventHandler_Rule(List<ObjectProperty> rule);
     public bEventHandler_Rule onExecuteRule;
     //
@@ -30,7 +32,6 @@ public class ObjectController : MonoBehaviour
         gameObjPrefab = gameObject.FindChildObj("Object");
         gameObjPrefab.SetActive(false);
         objectPool = new List<GameObject>();
-
         onExecuteRule = new bEventHandler_Rule(ExecuteRule);
     }
 
@@ -39,6 +40,7 @@ public class ObjectController : MonoBehaviour
     {
         
     }
+    
 
     // { stage load process
     public void StageLoad(StageProperty stageProperty)
@@ -110,6 +112,10 @@ public class ObjectController : MonoBehaviour
                 if(rule[0].TagId == opc.id)
                 {
                     // TagId 목적어인 속성의 id를 가리킴
+                    if(opc.FindAttribute(rule.Last().TagId))
+                    {
+                        continue;
+                    }
                     opc.AddAttribute(rule.Last().TagId);
                 }      
             }
@@ -119,6 +125,18 @@ public class ObjectController : MonoBehaviour
 
         }
         return isSuccessExecute;
+    }
+    public void AllObjAttributeReset()
+    {
+        foreach(GameObject obj in objectPool)
+        {
+            ObjectProperty opc = obj.GetComponentMust<ObjectProperty>();
+            opc.ResetAtrs();
+            if(opc.objectType == ObjectType.Text)
+            {
+                opc.AddAttribute(3);
+            }
+        }
     }
     public List<ObjectProperty> GetObjPropByPos(GridPosition pos)
     {
@@ -133,4 +151,5 @@ public class ObjectController : MonoBehaviour
         }
         return objProps;
     }
+
 }

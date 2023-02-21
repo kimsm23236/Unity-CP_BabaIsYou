@@ -6,4 +6,5 @@ Unity Portfolio Copy Project Baba Is You
 2023-02-16 / v0.0.3 / Rule Making System Base Setup   
 2023-02-17 / v0.0.4 / Working Rule Making System -> DFS Rule Checking   
 2023-02-20 / v0.0.5 / Grid Based Movement, Attribute : You, Win
-2023-02-20 / v0.0.6 / Attribute : Push                  
+2023-02-20 / v0.0.6 / Attribute : Push  
+2023-02-21 / v0.1.0 / End Prototype Version, Attribute Stop, 0 Stage                     

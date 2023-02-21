@@ -166,7 +166,6 @@ public class ObjectProperty : MonoBehaviour
     void Start()
     {
         DataManager.Instance.ToString();
-        
     }
     public void InitObject()
     {
@@ -218,16 +217,17 @@ public class ObjectProperty : MonoBehaviour
         {
             atr.Execute();
         }
+        Move();
+    }
+    void Move()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, 2000f * Time.deltaTime);
     }
     public void InitTest()
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
             InitObject();
-        }
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            AddAttribute(0);
         }
     }
     public bool IsVerb()
@@ -251,6 +251,7 @@ public class ObjectProperty : MonoBehaviour
             atr = new AtrWin();
             break;
             case 2:
+            atr = new AtrStop();
             break;
             case 3:
             atr = new AtrPush();
@@ -260,5 +261,10 @@ public class ObjectProperty : MonoBehaviour
         }
         atr.Attached(gameObject);
         atrArr.Add(atr);
+    }
+
+    public void ResetAtrs()
+    {
+        atrArr = new List<Attribute>();
     }
 }

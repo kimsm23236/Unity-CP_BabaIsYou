@@ -1,0 +1,132 @@
+[
+ {
+  "id": 0,
+  "name": "baba",
+  "otype": "o",
+  "ttype": "n",
+  "sprite_name": "baba_0_1",
+  "animator_name": "baba_0_1",
+  "animator_path": "Animations/Objects/baba/baba_0_1",
+  "tag": -1
+ },
+ {
+  "id": 1,
+  "name": "flag",
+  "otype": "o",
+  "ttype": "n",
+  "sprite_name": "flag_0_1",
+  "animator_name": "flag_0_1",
+  "animator_path": "Animations/Objects/flag_0_1",
+  "tag": -1
+ },
+ {
+  "id": 2,
+  "name": "rock",
+  "otype": "o",
+  "ttype": "n",
+  "sprite_name": "rock_0_1",
+  "animator_name": "rock_0_1",
+  "animator_path": "Animations/Objects/rock_0_1",
+  "tag": -1
+ },
+ {
+  "id": 3,
+  "name": "wall",
+  "otype": "o",
+  "ttype": "n",
+  "sprite_name": "wall_0_1",
+  "animator_name": "wall_0_1",
+  "animator_path": "Animations/Objects/wall/wall_0_1",
+  "tag": -1
+ },
+ {
+  "id": 4,
+  "name": "baba",
+  "otype": "t",
+  "ttype": "o",
+  "sprite_name": "text_baba_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Animations/Text/textAnim",
+  "tag": 0
+ },
+ {
+  "id": 5,
+  "name": "flag",
+  "otype": "t",
+  "ttype": "o",
+  "sprite_name": "text_flag_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Animations/Text/textAnim",
+  "tag": 1
+ },
+ {
+  "id": 6,
+  "name": "rock",
+  "otype": "t",
+  "ttype": "o",
+  "sprite_name": "text_rock_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Animations/Text/textAnim",
+  "tag": 2
+ },
+ {
+  "id": 7,
+  "name": "wall",
+  "otype": "t",
+  "ttype": "o",
+  "sprite_name": "text_wall_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Animations/Text/textAnim",
+  "tag": 3
+ },
+ {
+  "id": 8,
+  "name": "is",
+  "otype": "t",
+  "ttype": "v",
+  "sprite_name": "text_is_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Animations/Text/textAnim",
+  "tag": -1
+ },
+ {
+  "id": 9,
+  "name": "you",
+  "otype": "t",
+  "ttype": "a",
+  "sprite_name": "text_you_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Animations/Text/textAnim",
+  "tag": 0
+ },
+ {
+  "id": 10,
+  "name": "win",
+  "otype": "t",
+  "ttype": "a",
+  "sprite_name": "text_win_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Animations/Text/textAnim",
+  "tag": 1
+ },
+ {
+  "id": 11,
+  "name": "push",
+  "otype": "t",
+  "ttype": "a",
+  "sprite_name": "text_push_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Animations/Text/textAnim",
+  "tag": 3
+ },
+ {
+  "id": 12,
+  "name": "stop",
+  "otype": "t",
+  "ttype": "a",
+  "sprite_name": "text_stop_0_1",
+  "animator_name": "textAnim",
+  "animator_path": "Animations/Text/textAnim",
+  "tag": 2
+ }
+]

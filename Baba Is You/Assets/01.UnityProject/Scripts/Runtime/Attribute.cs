@@ -16,6 +16,7 @@ public class Attribute
 {
     private float moveSpeed = 1000f;
     public GameObject owner = default;
+    private ObjectProperty ownerOpc = default;
     public AttributeProperty property_ = default;
     public List<ObjectProperty> overlaps = default;
     protected List<GameObject> objectPool = default; 
@@ -24,7 +25,7 @@ public class Attribute
     public virtual void Attached(GameObject gObj_)
     {
         owner = gObj_;
-        ObjectProperty ownerOpc = gObj_.GetComponentMust<ObjectProperty>();
+        ownerOpc = gObj_.GetComponentMust<ObjectProperty>();
         position_ = ownerOpc.position;
         movePoint = ownerOpc.movePoint;
         GameObject gameObj = GFunc.GetRootObj("GameObjs");
@@ -32,7 +33,8 @@ public class Attribute
     }
     public virtual void Execute()
     {
-        Move();
+        // Move();
+        ownerOpc.position = position_;
     }
     public virtual void OnOverlap()
     {
@@ -50,5 +52,6 @@ public class Attribute
     public void Move()
     {
         owner.transform.position = Vector3.MoveTowards(owner.transform.position, movePoint.position, moveSpeed * Time.deltaTime);
+        
     }
 }
