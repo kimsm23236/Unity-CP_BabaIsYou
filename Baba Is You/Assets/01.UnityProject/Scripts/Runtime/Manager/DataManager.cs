@@ -11,6 +11,7 @@ public class DataManager
     public Dictionary<int, ObjectData> dicObjData;
     public Dictionary<int, AttributeData> dicAtrData;
     public Dictionary<string, RuntimeAnimatorController> dicObjAnimData;
+    public Dictionary<string, ColorData> dicColorData;
     public Dictionary<int, StageData> dicStgData;
     public RuntimeAnimatorController toAnimData;
 
@@ -23,6 +24,7 @@ public class DataManager
         LoadObjsDatas();
         LoadAtrsDatas();
         LoadAnimDatas();
+        LoadColorDatas();
         LoadStageDatas();
     }
     public static DataManager Instance
@@ -39,7 +41,7 @@ public class DataManager
 
     public void LoadObjsDatas()
     {
-        var json = Resources.Load<TextAsset>("Datas/ObjsData_v4").text;
+        var json = Resources.Load<TextAsset>("Datas/ObjsData_v5").text;
         var arrObjDatas = JsonConvert.DeserializeObject<ObjectData[]>(json);
         this.dicObjData = arrObjDatas.ToDictionary(x => x.id);
     }
@@ -48,6 +50,12 @@ public class DataManager
         var json = Resources.Load<TextAsset>("Datas/AtrData").text;
         var arrAtrDatas = JsonConvert.DeserializeObject<AttributeData[]>(json);
         this.dicAtrData = arrAtrDatas.ToDictionary(x => x.id);
+    }
+    public void LoadColorDatas()
+    {
+        var json = Resources.Load<TextAsset>("Datas/ColorData").text;
+        var arrColordatas = JsonConvert.DeserializeObject<ColorData[]>(json);
+        this.dicColorData = arrColordatas.ToDictionary(x => x.name);
     }
     public void LoadAnimDatas()
     {

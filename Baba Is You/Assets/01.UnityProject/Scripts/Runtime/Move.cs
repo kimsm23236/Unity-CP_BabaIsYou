@@ -10,13 +10,15 @@ public class Move : ICommand
     private GridPosition position;
     private Transform objectMovePoint;
     private Transform[,] targetMovePoint;
+    public bool isActiveMove = default;
 
-    public Move(Direction direction, GridPosition position, Transform objMovePoint, Transform[,] targets)
+    public Move(Direction direction, GridPosition position, Transform objMovePoint, Transform[,] targets, bool isActive)
     {
         this.direction = direction;
         this.position = position;
         this.objectMovePoint = objMovePoint;
         this.targetMovePoint = targets;
+        this.isActiveMove = isActive;
     }
     public void Execute()
     {

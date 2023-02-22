@@ -105,6 +105,8 @@ public class ObjectProperty : MonoBehaviour
 
     public Transform movePoint = default;
 
+    private ColorSetter colorSetter = default;
+
     #region Attribute Member
     private List<Attribute> atrArr = default;
     public List<Attribute> attributes
@@ -159,6 +161,8 @@ public class ObjectProperty : MonoBehaviour
     void Awake()
     {
         anim = gameObject.GetComponentMust<Animator>();
+        colorSetter = gameObject.GetComponentMust<ColorSetter>();
+        GFunc.Log("colorSetter Setup");
         anim.enabled = false;
         anim.enabled = true;
         atrArr = new List<Attribute>();
@@ -166,6 +170,8 @@ public class ObjectProperty : MonoBehaviour
     void Start()
     {
         DataManager.Instance.ToString();
+        
+        
     }
     public void InitObject()
     {
@@ -208,6 +214,8 @@ public class ObjectProperty : MonoBehaviour
             tType_ = TextType.NONE;
             break;
         }
+        
+        colorSetter.onInitObject(id, oType_);
         taggedId = data_.tag;
     }
     void Update()

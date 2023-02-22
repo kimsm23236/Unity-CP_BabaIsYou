@@ -17,6 +17,37 @@ public class ObjectController : MonoBehaviour
     }
     private GridController gridController = default;
     
+    #region  Object Move
+    private Stack<Move> moveStack = new Stack<Move>();
+
+    public void PushMove(ICommand command)
+    {
+        moveStack.Push(command as Move);
+        command.Execute();
+    }
+    public void UndoMove()
+    {
+        /*
+        if(commandList.Count <= 0)
+            return;
+        commandList[commandList.Count - 1].Undo();
+        commandList.RemoveAt(commandList.Count - 1);
+        */
+        // 집가서 수정 * 푸쉬에서 플레이어 움직임이 마지막으로 들어가서 Undo 할때 플레이어만 따로 뺌 
+
+        bool isLoopEnd = false;
+        
+        while(moveStack.Count >= 0 && !isLoopEnd)
+        {
+            Move lastMove = moveStack.Pop();
+            lastMove.Undo();
+            // 능동적 움직임이면 루프 탈출 * 플레이어의 움직임 등
+            if(lastMove.isActiveMove)
+                isLoopEnd = true;
+        }
+    }
+
+    #endregion
 
     // EventHandler
     
@@ -38,7 +69,10 @@ public class ObjectController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            UndoMove();
+        }
     }
     
 

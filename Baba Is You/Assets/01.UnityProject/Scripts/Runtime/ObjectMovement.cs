@@ -6,6 +6,7 @@ public class ObjectMovement : MonoBehaviour
 {
     [SerializeField]
     private List<Move> commandList = new List<Move>();
+    
     public int index = 0;
     void Update()
     {

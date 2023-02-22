@@ -20,12 +20,22 @@ public class ObjectData
     public string sprite_name;
     public string animator_name;
     public string animator_path;
+    public string basecolor;
+    public string activatecolor;
+    public string deactivatecolor;
     public int tag;
 }
 public class AttributeData
 {
     public int id;
     public string name;
+}
+public class ColorData
+{
+    public string name;
+    public float r;
+    public float g;
+    public float b;
 }
 
 public class StageData

@@ -26,6 +26,7 @@ public class AtrPush : Attribute
         bool isSuccessPush = true;
         int nextX = position_.x;
         int nextY = position_.y;
+        Direction nextDirection = dir;
         // direction 별 다음 좌표 체크
         switch(dir)
         {
@@ -58,10 +59,7 @@ public class AtrPush : Attribute
         List<ObjectProperty> CollisionObjs = objectController.GetObjPropByPos(nextPos);
         foreach(ObjectProperty obj in CollisionObjs)
         {
-            // 밀려는 위치에 있는 오브젝트가 stop 속성 가지고 있는 경우
-            if(obj.FindAttribute(2))
-                return false;
-            else if(obj.FindAttribute(3)) // push 속성 가지고 있는 경우
+            if(obj.FindAttribute(3)) // push 속성 가지고 있는 경우
             {
                 AtrPush next = obj.GetAttribute(3) as AtrPush;
                 if(!next.IsPushed(dir)) // push 속성을 가지고 있으나 밀지 못하는 경우
@@ -69,12 +67,15 @@ public class AtrPush : Attribute
                     return false;
                 }
             }
+            else if(obj.FindAttribute(2)) // 밀려는 위치에 있는 오브젝트가 stop 속성 가지고 있는 경우
+                return false;
         }
 
         // 밀수 있다면 위치 변경
-        movePoint.position = gridController.gridObjs[nextY, nextX].position;
-        position_.x = nextX;
-        position_.y = nextY;
+        ICommand movement = new Move(nextDirection, position_, movePoint, gridController.gridObjs, false);
+        objectController.PushMove(movement);
+        // ownerOmc.AddCommand(movement);
+
         return isSuccessPush;
     }
 }

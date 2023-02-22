@@ -73,8 +73,9 @@ public class AtrYou : Attribute
                 //position_.x = nextX;
                 //position_.y = nextY;
                 // send command
-                ICommand movement = new Move(nextDirection, position_, movePoint, gridController.gridObjs);
-                ownerOmc.AddCommand(movement);
+                ICommand movement = new Move(nextDirection, position_, movePoint, gridController.gridObjs, true);
+                objectController.PushMove(movement);
+                // ownerOmc.AddCommand(movement);
             }
             // movePoint.position = gridController.gridObjs[position_.y, position_.x].transform.position;
 
@@ -118,17 +119,18 @@ public class AtrYou : Attribute
         // 오브젝트 체크 push
         foreach(ObjectProperty objProp in collisionObjs)
         {
-            if(objProp.FindAttribute(2))
-            {
-                return false;
-            }
-            else if(objProp.FindAttribute(3))
+            if(objProp.FindAttribute(3))
             {
                 AtrPush next = objProp.GetAttribute(3) as AtrPush;
                 if(!next.IsPushed(owner.GetComponentMust<ObjectProperty>().direction)) // push 속성을 가지고 있으나 밀지 못하는 경우
                 {
                     return false;
                 }
+            }
+            else if(objProp.FindAttribute(2))
+            {
+                GFunc.Log($"{objProp.Name}은 Stop 가지고 있어");
+                return false;
             }
         }
 

@@ -109,6 +109,8 @@ public class RuleMakingSystem : MonoBehaviour
             int x = tObj.position.x;
             int y = tObj.position.y;
             textObjArr[y,x] = tObj;
+            ColorSetter csc = tObj.gameObject.GetComponentMust<ColorSetter>();
+            csc.onDeactivate();
         }
     }
     public void RuleCheck()
@@ -207,6 +209,8 @@ public class RuleMakingSystem : MonoBehaviour
             for(int i = 0; i < rule.Count; i++)
             {
                 ruleString += (rule[i].Name + " ");
+                ColorSetter csc = rule[i].gameObject.GetComponentMust<ColorSetter>();
+                csc.onActivate();
             }
             objectController.onExecuteRule(rule);
             GFunc.Log($"Rule : {ruleString}");
