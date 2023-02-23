@@ -9,4 +9,5 @@ Unity Portfolio Copy Project Baba Is You
 2023-02-20 / v0.0.6 / Attribute : Push  
 2023-02-21 / v0.1.0 / End Prototype Version, Attribute Stop, 0 Stage 
 2023-02-21 / v0.1.1 / Move Record and Undo Base       
-2023-02-22 / v0.1.2 / Object Color Setup, Undo working                      
+2023-02-22 / v0.1.2 / Object Color Setup, Undo working       
+2023-02-23 / v0.1.3 / Undo Prototype Ended                   

@@ -18,10 +18,25 @@ public class ObjectController : MonoBehaviour
     private GridController gridController = default;
     
     #region  Object Move
+    private int turnCount = default;
+    private bool isTurnIncrease = false;
+    private bool isTurnDecrease = false;
+    public int Turn
+    {
+        get
+        {
+            return turnCount;
+        }
+    }
     private Stack<Move> moveStack = new Stack<Move>();
 
     public void PushMove(ICommand command)
     {
+        if(isTurnIncrease == false)
+        {
+            isTurnIncrease = true;
+        }
+        GFunc.Log($"move push stack, turnCount : {turnCount}");
         moveStack.Push(command as Move);
         command.Execute();
     }
@@ -35,18 +50,46 @@ public class ObjectController : MonoBehaviour
         */
         // 집가서 수정 * 푸쉬에서 플레이어 움직임이 마지막으로 들어가서 Undo 할때 플레이어만 따로 뺌 
 
-        bool isLoopEnd = false;
-        
-        while(moveStack.Count >= 0 && !isLoopEnd)
+        while(moveStack.Count >= 1)
         {
+            if(moveStack.First().turn != turnCount - 1)
+                break;
+
+            if(isTurnDecrease == false)
+            {
+                isTurnDecrease = true;
+            }
+
             Move lastMove = moveStack.Pop();
             lastMove.Undo();
-            // 능동적 움직임이면 루프 탈출 * 플레이어의 움직임 등
-            if(lastMove.isActiveMove)
-                isLoopEnd = true;
         }
     }
 
+    IEnumerator IncreaseTurn()
+    {
+        while(true)
+        {
+            yield return null;
+            if(isTurnIncrease)
+            {
+                turnCount++;
+                isTurnIncrease = false;
+            }
+        }
+    }
+
+    IEnumerator DecreaseTurn()
+    {
+        while(true)
+        {
+            yield return null;
+            if(isTurnDecrease)
+            {
+                turnCount = Mathf.Clamp(turnCount - 1, 0, int.MaxValue);
+                isTurnDecrease = false;
+            }
+        }
+    }
     #endregion
 
     // EventHandler
@@ -64,6 +107,8 @@ public class ObjectController : MonoBehaviour
         gameObjPrefab.SetActive(false);
         objectPool = new List<GameObject>();
         onExecuteRule = new bEventHandler_Rule(ExecuteRule);
+        StartCoroutine(IncreaseTurn());
+        StartCoroutine(DecreaseTurn());
     }
 
     // Update is called once per frame

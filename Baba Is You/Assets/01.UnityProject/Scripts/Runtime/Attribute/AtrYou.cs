@@ -73,7 +73,7 @@ public class AtrYou : Attribute
                 //position_.x = nextX;
                 //position_.y = nextY;
                 // send command
-                ICommand movement = new Move(nextDirection, position_, movePoint, gridController.gridObjs, true);
+                ICommand movement = new Move(nextDirection, position_, movePoint, gridController.gridObjs, objectController.Turn);
                 objectController.PushMove(movement);
                 // ownerOmc.AddCommand(movement);
             }
