@@ -172,8 +172,7 @@ public class ObjectProperty : MonoBehaviour
     void Start()
     {
         DataManager.Instance.ToString();
-        
-        
+
     }
     public void InitObject()
     {
@@ -267,6 +266,9 @@ public class ObjectProperty : MonoBehaviour
             break;
             case 3:
             atr = new AtrPush();
+            break;
+            case 4:
+            atr = new AtrSink();
             break;
             default:
             break;

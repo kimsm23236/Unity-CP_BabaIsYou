@@ -23,6 +23,7 @@ public class Attribute
     protected List<GameObject> objectPool = default; 
     protected GridPosition position_ = default;
     public Transform movePoint = default;
+    public ObjectController objectController = default;
     public virtual void Attached(GameObject gObj_)
     {
         owner = gObj_;
@@ -31,11 +32,12 @@ public class Attribute
         movePoint = ownerOpc.movePoint;
         GameObject gameObj = GFunc.GetRootObj("GameObjs");
         objectPool = gameObj.FindChildObj("ObjectController").GetComponentMust<ObjectController>().Pool;
+        objectController = gameObj.FindChildObj("ObjectController").GetComponentMust<ObjectController>();
     }
     public virtual void Execute()
     {
         // Move();
-        ownerOpc.position = position_;
+        // ownerOpc.position = position_;
     }
     public virtual void OnOverlap()
     {

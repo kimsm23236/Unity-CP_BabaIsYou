@@ -5,7 +5,6 @@ using UnityEngine;
 public class AtrPush : Attribute
 {
     private GridController gridController = default;
-    private ObjectController objectController = default;
     public AtrPush()
     {
         AttributeData atrData = DataManager.Instance.dicAtrData[3];
@@ -19,7 +18,6 @@ public class AtrPush : Attribute
         base.Attached(gObj_);
         GameObject gameObj = GFunc.GetRootObj("GameObjs");
         gridController = gameObj.FindChildObj("Grid").GetComponentMust<GridController>();
-        objectController = gameObj.FindChildObj("ObjectController").GetComponentMust<ObjectController>();
     }
     public bool IsPushed(Direction dir)
     {

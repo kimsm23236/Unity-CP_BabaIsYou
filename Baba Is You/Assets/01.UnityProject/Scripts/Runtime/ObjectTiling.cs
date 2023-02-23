@@ -16,7 +16,6 @@ public class ObjectTiling : MonoBehaviour
     private int[] di = {1000, 100, 10, 1};
 
     // 타일링 변수
-    private bool[] isThereEqObj = {};
     private int animNum = default;
 
     public delegate void EventHandler();
@@ -29,22 +28,28 @@ public class ObjectTiling : MonoBehaviour
         objectController = gObjs.FindChildObj("ObjectController").GetComponentMust<ObjectController>();
         ownAnimator = gameObject.GetComponentMust<Animator>();
         ownerOPC = gameObject.GetComponentMust<ObjectProperty>();
-        width_ = gObjs.FindChildObj("Grid").GetComponentMust<GridController>().gridData.width_;
-        height_ = gObjs.FindChildObj("Grid").GetComponentMust<GridController>().gridData.height_;
-        isThereEqObj = new bool[4];
         onInitObject = new EventHandler(Init);
     }
     void Start()
     {
-        
+        GameObject gObjs = GFunc.GetRootObj("GameObjs");
+        width_ = gObjs.FindChildObj("Grid").GetComponentMust<GridController>().gridData.width_;
+        height_ = gObjs.FindChildObj("Grid").GetComponentMust<GridController>().gridData.height_;
     }
 
     void Init()
     {
         if(GData.OBJ_ID_TILING.Contains(ownerOPC.id))
+        {
             isTilingObject = true;
+            //ownAnimator.SetInteger("id", ownerOPC.id);
+        }
         else
+        {
             isTilingObject = false;
+            this.enabled = false;
+            return;
+        }
             
         StartCoroutine(Tiling());
     }
@@ -53,11 +58,7 @@ public class ObjectTiling : MonoBehaviour
     {
         if(isTilingObject == false)
             return;
-
-        for(int i = 0 ; i < 4; i++)
-        {
-            isThereEqObj[i] = false;
-        }
+            
         animNum = 0;
 
         GridPosition curPos = gameObject.GetComponentMust<ObjectProperty>().position;
@@ -90,6 +91,7 @@ public class ObjectTiling : MonoBehaviour
             return;
 
         ownAnimator.SetInteger("animValue", animNum);
+        ownAnimator.SetInteger("id", ownerOPC.id);
     }
     IEnumerator Tiling()
     {

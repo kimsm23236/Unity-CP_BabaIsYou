@@ -5,7 +5,6 @@ using UnityEngine;
 public class AtrYou : Attribute
 {
     private GridController gridController = default;
-    private ObjectController objectController = default;
     private RuleMakingSystem rms = default;
     public LayerMask whatStopMovement = default;
     public AtrYou()
@@ -21,7 +20,6 @@ public class AtrYou : Attribute
         base.Attached(gObj_);
         GameObject gameObj = GFunc.GetRootObj("GameObjs");
         gridController = gameObj.FindChildObj("Grid").GetComponentMust<GridController>();
-        objectController = gameObj.FindChildObj("ObjectController").GetComponentMust<ObjectController>();
         rms = GFunc.GetRootObj("TempRMS").GetComponentMust<RuleMakingSystem>();
     }
     public override void Execute()

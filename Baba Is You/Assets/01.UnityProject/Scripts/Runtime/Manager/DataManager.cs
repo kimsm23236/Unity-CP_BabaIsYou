@@ -41,13 +41,13 @@ public class DataManager
 
     public void LoadObjsDatas()
     {
-        var json = Resources.Load<TextAsset>("Datas/ObjsData_v5").text;
+        var json = Resources.Load<TextAsset>("Datas/ObjsData_v6").text;
         var arrObjDatas = JsonConvert.DeserializeObject<ObjectData[]>(json);
         this.dicObjData = arrObjDatas.ToDictionary(x => x.id);
     }
     public void LoadAtrsDatas()
     {
-        var json = Resources.Load<TextAsset>("Datas/AtrData").text;
+        var json = Resources.Load<TextAsset>("Datas/AtrData_v2").text;
         var arrAtrDatas = JsonConvert.DeserializeObject<AttributeData[]>(json);
         this.dicAtrData = arrAtrDatas.ToDictionary(x => x.id);
     }
