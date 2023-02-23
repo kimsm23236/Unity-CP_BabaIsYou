@@ -8,6 +8,7 @@ public class ObjectController : MonoBehaviour
 {
     private GameObject gameObjPrefab = default;
     private List<GameObject> objectPool = default;
+    private RuleMakingSystem ruleMakingSystem = default;
     public List<GameObject> Pool
     {
         get
@@ -73,6 +74,7 @@ public class ObjectController : MonoBehaviour
             if(isTurnIncrease)
             {
                 turnCount++;
+                onChangedTurn();
                 isTurnIncrease = false;
             }
         }
@@ -86,6 +88,7 @@ public class ObjectController : MonoBehaviour
             if(isTurnDecrease)
             {
                 turnCount = Mathf.Clamp(turnCount - 1, 0, int.MaxValue);
+                onChangedTurn();
                 isTurnDecrease = false;
             }
         }
@@ -95,7 +98,9 @@ public class ObjectController : MonoBehaviour
     // EventHandler
     
     public delegate bool bEventHandler_Rule(List<ObjectProperty> rule);
+    public delegate void EventHandler();
     public bEventHandler_Rule onExecuteRule;
+    public EventHandler onChangedTurn;
     //
 
     // Start is called before the first frame update
@@ -103,10 +108,12 @@ public class ObjectController : MonoBehaviour
     {
         GameObject gameObjs = GFunc.GetRootObj("GameObjs");
         gridController = gameObjs.FindChildObj("Grid").GetComponentMust<GridController>();
+        ruleMakingSystem = GFunc.GetRootObj("TempRMS").GetComponentMust<RuleMakingSystem>();
         gameObjPrefab = gameObject.FindChildObj("Object");
         gameObjPrefab.SetActive(false);
         objectPool = new List<GameObject>();
         onExecuteRule = new bEventHandler_Rule(ExecuteRule);
+        onChangedTurn = () => ruleMakingSystem.onUpdateRule();
         StartCoroutine(IncreaseTurn());
         StartCoroutine(DecreaseTurn());
     }

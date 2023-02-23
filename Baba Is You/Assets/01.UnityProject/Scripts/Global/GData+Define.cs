@@ -9,6 +9,7 @@ public static partial class GData
     public const string SCENE_NAME_STAGE_2 = "03.PlayScene_Stage2";
 
     public const string OBJ_NAME_CURRENT_LEVEL = "Level_1";
+    public static List<int> OBJ_ID_TILING = new List<int> {3};
 }
 
 public class ObjectData

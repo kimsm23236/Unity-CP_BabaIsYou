@@ -64,10 +64,12 @@ public class AtrYou : Attribute
             GridPosition nextPos = new GridPosition();
             nextPos.x = nextX;
             nextPos.y = nextY;
+            /*
             if(position_ != nextPos)
             {
                 rms.onUpdateRule();
             }
+            */
             if(MoveCheck(nextX, nextY))
             {
                 //position_.x = nextX;
