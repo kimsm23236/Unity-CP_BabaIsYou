@@ -72,6 +72,7 @@ public class AtrPush : Attribute
         // 밀수 있다면 위치 변경
         ICommand movement = new Move(nextDirection, position_, movePoint, gridController.gridObjs, objectController.Turn);
         objectController.PushMove(movement);
+        ownerOmc.onMoved();
         // ownerOmc.AddCommand(movement);
 
         return isSuccessPush;

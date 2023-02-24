@@ -85,32 +85,24 @@ public class ObjectController : MonoBehaviour
         }
     }
 
-    IEnumerator IncreaseTurn()
+    void IncreaseTurn()
     {
-        while(true)
-        {
-            yield return null;
-            if(isTurnIncrease)
-            {
-                turnCount++;
-                onChangedTurn();
-                isTurnIncrease = false;
-            }
-        }
+        if(!isTurnIncrease)
+            return;
+        isTurnIncrease = false;
+
+        turnCount++;
+        onChangedTurn();
+        
     }
 
-    IEnumerator DecreaseTurn()
+    void DecreaseTurn()
     {
-        while(true)
-        {
-            yield return null;
-            if(isTurnDecrease)
-            {
-                turnCount = Mathf.Clamp(turnCount - 1, 0, int.MaxValue);
-                onChangedTurn();
-                isTurnDecrease = false;
-            }
-        }
+        if(!isTurnDecrease)
+            return;
+        isTurnDecrease = false;
+        turnCount = Mathf.Clamp(turnCount - 1, 0, int.MaxValue);
+        onChangedTurn();
     }
     #endregion
 
@@ -122,6 +114,10 @@ public class ObjectController : MonoBehaviour
     public EventHandler onChangedTurn;
     //
 
+    // caching object
+    private List<ObjectTiling> tilingObjects = default;
+    //
+
     // Start is called before the first frame update
     void Start()
     {
@@ -131,15 +127,20 @@ public class ObjectController : MonoBehaviour
         gameObjPrefab = gameObject.FindChildObj("Object");
         gameObjPrefab.SetActive(false);
         objectPool = new List<GameObject>();
+        tilingObjects = new List<ObjectTiling>();
         onExecuteRule = new bEventHandler_Rule(ExecuteRule);
-        onChangedTurn = () => ruleMakingSystem.onUpdateRule();
-        StartCoroutine(IncreaseTurn());
-        StartCoroutine(DecreaseTurn());
+        onChangedTurn = () => GFunc.Log("Change Turn");
+        onChangedTurn += () => ruleMakingSystem.onUpdateRule();
+        onChangedTurn += AllTilingObjsTiling;
+        //StartCoroutine(IncreaseTurn());
+        //StartCoroutine(DecreaseTurn());
     }
 
     // Update is called once per frame
     void Update()
     {
+        IncreaseTurn();
+        DecreaseTurn();
         if(Input.GetKeyDown(KeyCode.Z))
         {
             UndoMove();
@@ -170,14 +171,20 @@ public class ObjectController : MonoBehaviour
                     // movePoint = gameObject.FindChildObj("MovePoint").transform;
                     // movePoint.parent = GFunc.GetRootObj("GameObjs").FindChildObj("Grid").transform;
                     ObjectProperty opc = newObj.GetComponentMust<ObjectProperty>();
-                    opc.movePoint = newObj.FindChildObj("MovePoint").transform;
-                    opc.movePoint.SetParent(gridController.transform);
+                    ObjectMovement omc = newObj.GetComponentMust<ObjectMovement>();
+                    ObjectTiling otc = newObj.GetComponentMust<ObjectTiling>();
+                    omc.movePoint = newObj.FindChildObj("MovePoint").transform;
+                    omc.movePoint.SetParent(gridController.transform);
                     GridPosition pos = new GridPosition();
                     pos.x = x;
                     pos.y = y;
                     opc.id = id;
-                    opc.position = pos;
-                    opc.movePoint.position = gridController.gridObjs[y, x].position;
+                    if(GData.OBJ_ID_TILING.Contains(id))
+                    {
+                        tilingObjects.Add(otc);
+                    }
+                    omc.position = pos;
+                    omc.movePoint.position = gridController.gridObjs[y, x].position;
                     objectPool.Add(newObj);
                 }
             }
@@ -188,10 +195,11 @@ public class ObjectController : MonoBehaviour
         // 오브젝트 데이터 셋업
         foreach(GameObject obj in objectPool)
         {
-            ObjectProperty op = obj.GetComponentMust<ObjectProperty>();
-            int x = op.position.x;
-            int y = op.position.y;
-            op.InitObject();
+            ObjectProperty opc = obj.GetComponentMust<ObjectProperty>();
+            ObjectMovement omc = obj.GetComponentMust<ObjectMovement>();
+            int x = omc.position.x;
+            int y = omc.position.y;
+            opc.InitObject();
             obj.SetLocalPos(gridController.gridObjs[y,x].transform.localPosition);
         }
 
@@ -248,13 +256,20 @@ public class ObjectController : MonoBehaviour
         List<ObjectProperty> objProps = new List<ObjectProperty>();
         foreach(GameObject obj in objectPool)
         {
-            ObjectProperty opc = obj.GetComponentMust<ObjectProperty>();
-            if(opc.position == pos)
+            ObjectMovement omc = obj.GetComponentMust<ObjectMovement>();
+            if(omc.position == pos)
             {
+                ObjectProperty opc = omc.gameObject.GetComponentMust<ObjectProperty>();
                 objProps.Add(opc);
             }
         }
         return objProps;
     }
-
+    void AllTilingObjsTiling()
+    {
+        foreach(ObjectTiling otc in tilingObjects)
+        {
+            otc.onTiling();
+        }
+    }
 }

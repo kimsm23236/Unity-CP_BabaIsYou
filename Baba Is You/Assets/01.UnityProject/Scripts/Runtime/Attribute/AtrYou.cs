@@ -58,7 +58,7 @@ public class AtrYou : Attribute
                 nextX = position_.x;
                 nextY = position_.y + 1;
             }
-            owner.GetComponentMust<ObjectProperty>().direction = nextDirection;
+            ownerOmc.direction = nextDirection;
             GridPosition nextPos = new GridPosition();
             nextPos.x = nextX;
             nextPos.y = nextY;
@@ -75,6 +75,8 @@ public class AtrYou : Attribute
                 // send command
                 ICommand movement = new Move(nextDirection, position_, movePoint, gridController.gridObjs, objectController.Turn);
                 objectController.PushMove(movement);
+                ownerOmc.onMoved();
+                
                 // ownerOmc.AddCommand(movement);
             }
             // movePoint.position = gridController.gridObjs[position_.y, position_.x].transform.position;
@@ -122,7 +124,7 @@ public class AtrYou : Attribute
             if(objProp.FindAttribute(3))
             {
                 AtrPush next = objProp.GetAttribute(3) as AtrPush;
-                if(!next.IsPushed(owner.GetComponentMust<ObjectProperty>().direction)) // push 속성을 가지고 있으나 밀지 못하는 경우
+                if(!next.IsPushed(ownerOmc.direction)) // push 속성을 가지고 있으나 밀지 못하는 경우
                 {
                     return false;
                 }

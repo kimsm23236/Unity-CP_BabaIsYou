@@ -16,7 +16,8 @@ public class Attribute
 {
     private float moveSpeed = 1000f;
     public GameObject owner = default;
-    private ObjectProperty ownerOpc = default;
+    protected ObjectProperty ownerOpc = default;
+    protected ObjectMovement ownerOmc = default;
     [SerializeField]
     public AttributeProperty property_ = default;
     public List<ObjectProperty> overlaps = default;
@@ -28,33 +29,34 @@ public class Attribute
     {
         owner = gObj_;
         ownerOpc = gObj_.GetComponentMust<ObjectProperty>();
-        position_ = ownerOpc.position;
-        movePoint = ownerOpc.movePoint;
+        ownerOmc = gObj_.GetComponentMust<ObjectMovement>();
+
+        position_ = ownerOmc.position;
+        movePoint = ownerOmc.movePoint;
         GameObject gameObj = GFunc.GetRootObj("GameObjs");
         objectPool = gameObj.FindChildObj("ObjectController").GetComponentMust<ObjectController>().Pool;
         objectController = gameObj.FindChildObj("ObjectController").GetComponentMust<ObjectController>();
+        overlaps = new List<ObjectProperty>();
     }
     public virtual void Execute()
     {
-        // Move();
-        // ownerOpc.position = position_;
+        
     }
     public virtual void OnOverlap()
     {
-        GridPosition ownerPos = owner.GetComponentMust<ObjectProperty>().position;
-        ObjectController occ = GFunc.GetRootObj("GameObjs").FindChildObj("ObjectController").GetComponentMust<ObjectController>();
-        overlaps = new List<ObjectProperty>();
-        foreach(GameObject obj in occ.Pool)
+        GridPosition ownerPos = ownerOmc.position;
+        //ObjectController occ = GFunc.GetRootObj("GameObjs").FindChildObj("ObjectController").GetComponentMust<ObjectController>();
+        
+        foreach(GameObject obj in objectPool)
         {
-            if(obj.GetComponentMust<ObjectProperty>().position == ownerPos)
+            if(obj.GetComponentMust<ObjectMovement>().position == ownerPos)
             {
                 overlaps.Add(obj.GetComponentMust<ObjectProperty>());
             }
         }
     }
-    public void Move()
+    public bool Equals(int id)
     {
-        owner.transform.position = Vector3.MoveTowards(owner.transform.position, movePoint.position, moveSpeed * Time.deltaTime);
-        
+        return property_.id == id;
     }
 }

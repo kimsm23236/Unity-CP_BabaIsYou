@@ -6,21 +6,28 @@ public class RuleMakingSystem : MonoBehaviour
 {
     private GridData curLevelGridData = default;
     private ObjectController objectController = default;
-    private ObjectProperty[,] textObjArr = default;
-    private List<ObjectProperty> listTextObj = default;
+    private ObjectMovement[,] textObjArr = default;
+    private List<ObjectMovement> listTextObj = default;
     private List<ObjectProperty> listVerb = default;
+
+    // 리팩토링 중 ....
+    private List<Rule> rules = default;
+    private List<Rule> updatedRules = default;
     private List<List<ObjectProperty>> currentRules = default;
     private List<List<ObjectProperty>> prevRules = default;
     private List<List<ObjectProperty>> tempRules = default;
     private List<ObjectProperty> makedRule = default;
-    private bool isUpdateRule = default;
+    private bool isNeedUpdateRule = default;
+    // ....
 
     private int gridWidth_ = default;
     private int gridHeight_ = default;
 
     public delegate void EventHandler();
+    public delegate void EventHandler_Rule(Rule rule);
     public EventHandler onRuleCheck;
     public EventHandler onUpdateRule;
+    public EventHandler_Rule onRemoveRule;
     // Start is called before the first frame update
     void Awake()
     {
@@ -34,41 +41,31 @@ public class RuleMakingSystem : MonoBehaviour
     }
     void Start()
     {
-        listTextObj = new List<ObjectProperty>();
+        listTextObj = new List<ObjectMovement>();
         listVerb = new List<ObjectProperty>();
-        onRuleCheck = new EventHandler(RuleCheck);
-        onUpdateRule += () => isUpdateRule = true;
+        onRuleCheck = new EventHandler(UpdateRule);
+        rules = new List<Rule>();
+        isNeedUpdateRule = false;
+        onUpdateRule += () => isNeedUpdateRule = true;
+        onRemoveRule = new EventHandler_Rule(RemoveRule);
     }
 
     // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.A))
-        {
-            UpdateList();
+        { 
             curLevelGridData = GFunc.GetRootObj("GameObjs").FindChildObj("Grid").GetComponentMust<GridController>().gridData;
             gridWidth_ = curLevelGridData.width_;
             gridHeight_ = curLevelGridData.height_;
+            isNeedUpdateRule = true;
+            InitList();
         }
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            RuleCheck();
-        }
-        // 임시 룰 체킹 * 느려짐
-        UpdateRuleCheck();
+        UpdateRule();
     }
-    public void UpdateList()
+    public void InitList()
     {
         listTextObj = UpdateListTObj();
-        listVerb = UpdateListVerb();
-        foreach(ObjectProperty od in listTextObj)
-        {
-            GFunc.Log($"TObj - {od.Name}");
-        }
-        foreach(ObjectProperty od in listVerb)
-        {
-            GFunc.Log($"Verb Obj - {od.Name}");
-        }
     }
 
     List<ObjectProperty> UpdateListVerb()
@@ -86,35 +83,39 @@ public class RuleMakingSystem : MonoBehaviour
         }
         return newList;
     }
-    List<ObjectProperty> UpdateListTObj()
+    List<ObjectMovement> UpdateListTObj()
     {
         List<GameObject> AllObjs = objectController.Pool;
-        List<ObjectProperty> newList = new List<ObjectProperty>();
+        List<ObjectMovement> newList = new List<ObjectMovement>();
         foreach(GameObject obj in AllObjs)
         {
+            ObjectMovement omc = obj.GetComponentMust<ObjectMovement>();
             ObjectProperty opc = obj.GetComponentMust<ObjectProperty>();
             if(!opc.IsTextType())
             {
                 continue;
             }
-            newList.Add(opc);
+            omc.onMoved += () => isNeedUpdateRule = true;
+            newList.Add(omc);
         }
         return newList;
     }
     void InitTObjArray()
     {
-        textObjArr = new ObjectProperty[gridHeight_, gridWidth_];
-        foreach(ObjectProperty tObj in listTextObj)
+        textObjArr = new ObjectMovement[gridHeight_, gridWidth_];
+        foreach(ObjectMovement tObj in listTextObj)
         {
             int x = tObj.position.x;
             int y = tObj.position.y;
             textObjArr[y,x] = tObj;
-            ColorSetter csc = tObj.gameObject.GetComponentMust<ColorSetter>();
-            csc.onDeactivate();
         }
     }
-    public void RuleCheck()
+    public void UpdateRule()
     {
+        if(!isNeedUpdateRule)
+            return;
+        isNeedUpdateRule = false; 
+
         InitTObjArray();
         // 2차원 텍스트 오브젝트 배열 돌면서 오브젝트 타입을 만나면 DFS로 룰 검사
         for(int x = 0; x < textObjArr.GetLength(1); x++)
@@ -124,9 +125,9 @@ public class RuleMakingSystem : MonoBehaviour
                 // Debug.Log($"checking ... -> TextObject : {textObjArr[y,x].Name}");
                 if(textObjArr[y,x] == null || textObjArr[y,x] == default)
                     continue;
-                if(textObjArr[y,x].textType == TextType.Object)
+                if(textObjArr[y,x].objectProperty.textType == TextType.Object)
                 {
-                    GFunc.Log($"Find TextObject : {textObjArr[y,x].Name}");
+                    GFunc.Log($"Find TextObject : {textObjArr[y,x].objectProperty.Name}");
                     // 오른쪽 dfs 검사
                     DFS(x, y, 1, 0);
                     // 아래쪽 dfs 검사
@@ -136,7 +137,7 @@ public class RuleMakingSystem : MonoBehaviour
         }
         ApplyRule();
     }
-    void DFS(int x, int y, int depth, int dir)
+    public void DFS(int x, int y, int depth, int dir)
     {
         // 깊이 체크
         if(depth > 3) // 깊이 맥스값 변할수도 있음
@@ -154,7 +155,7 @@ public class RuleMakingSystem : MonoBehaviour
         if(!CheckSentence(x,y,depth))
             return;
         // Maked Rule add
-        makedRule.Add(textObjArr[y,x]);
+        makedRule.Add(textObjArr[y,x].objectProperty);
 
         if(depth >= 3)
         {   
@@ -180,13 +181,13 @@ public class RuleMakingSystem : MonoBehaviour
         switch(depth)
         {
             case 1:
-            isRightSentence = textObjArr[y,x].textType == TextType.Object;
+            isRightSentence = textObjArr[y,x].objectProperty.textType == TextType.Object;
             break;
             case 2:
-            isRightSentence = textObjArr[y,x].textType == TextType.Verb;
+            isRightSentence = textObjArr[y,x].objectProperty.textType == TextType.Verb;
             break; 
             case 3:
-            isRightSentence = textObjArr[y,x].textType == TextType.Object || textObjArr[y,x].textType == TextType.Attribute;
+            isRightSentence = textObjArr[y,x].objectProperty.textType == TextType.Object || textObjArr[y,x].objectProperty.textType == TextType.Attribute;
             break;
             default:
             isRightSentence = false;
@@ -197,10 +198,39 @@ public class RuleMakingSystem : MonoBehaviour
     }
     void AddRule()
     {
-        tempRules.Add(makedRule);
+        //
+        Rule newRule = new Rule(makedRule[0], makedRule[1], makedRule[2]);
+        bool isAddRule = true;
+        foreach(Rule rule in rules)
+        {
+            if(rule == newRule)
+            {
+                isAddRule = false;
+                break;
+            }
+
+        }
+        if(!isAddRule)
+            return;
+        newRule.Init(this, objectController.Pool);
+        rules.Add(newRule);
+        //
+
+        //updatedRules.Add(newRule);
+        //tempRules.Add(makedRule);
     }
     void ApplyRule()
     {
+        // 리팩토링 코드
+        //if(updatedRules == rules)
+
+        foreach(Rule rule in rules)
+        {
+            rule.Apply();
+        }
+
+        return;
+        //
         objectController.AllObjAttributeReset();
         currentRules = tempRules;
         foreach(List<ObjectProperty> rule in currentRules)
@@ -219,10 +249,14 @@ public class RuleMakingSystem : MonoBehaviour
     }
     void UpdateRuleCheck()
     {
-        if(!isUpdateRule)
+        if(!isNeedUpdateRule)
             return;
-        isUpdateRule = false;
-        RuleCheck();
+        isNeedUpdateRule = false;
+        UpdateRule();
+    }
+    void RemoveRule(Rule removed)
+    {
+        rules.Remove(removed);
     }
 }
 

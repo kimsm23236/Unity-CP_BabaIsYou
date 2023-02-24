@@ -4,27 +4,56 @@ using UnityEngine;
 
 public class ObjectMovement : MonoBehaviour
 {
-    [SerializeField]
-    private List<Move> commandList = new List<Move>();
-    
-    public int index = 0;
-    void Update()
+    public Transform movePoint = default;
+    public ObjectProperty objectProperty = default;
+    private GridPosition position_ = default;
+    public GridPosition position
     {
-        if(Input.GetKeyDown(KeyCode.Z))
+        get
         {
-            UndoCommand();
+            return position_;
+        }
+        set
+        {
+            position_ = value;
         }
     }
-    public void AddCommand(ICommand command)
+    private Direction direction_ = Direction.Right;
+    public Direction direction
     {
-        commandList.Add(command as Move);
-        command.Execute();
+        get
+        {
+            return direction_;
+        }
+        set
+        {
+            direction_ = value;
+        }
     }
-    public void UndoCommand()
+
+    public delegate void EventHandler();
+    public EventHandler onMoved;
+
+    void Awake()
     {
-        if(commandList.Count <= 0)
-            return;
-        commandList[commandList.Count - 1].Undo();
-        commandList.RemoveAt(commandList.Count - 1);
+
+    }
+    void Start()
+    {
+        objectProperty = gameObject.GetComponentMust<ObjectProperty>();
+        onMoved = new EventHandler(MoveLog);
+    }
+    void Update()
+    {
+        Move();
+    }
+    
+    void Move()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, 2000f * Time.deltaTime);
+    }
+    void MoveLog()
+    {
+        GFunc.Log($"{objectProperty.name} position : {position.x}, {position.y}");
     }
 }

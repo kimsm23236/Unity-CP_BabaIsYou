@@ -41,30 +41,7 @@ public class ObjectProperty : MonoBehaviour
         }
     }
     private Animator anim = default;
-    private GridPosition position_ = default;
-    public GridPosition position
-    {
-        get
-        {
-            return position_;
-        }
-        set
-        {
-            position_ = value;
-        }
-    }
-    private Direction direction_ = Direction.Right;
-    public Direction direction
-    {
-        get
-        {
-            return direction_;
-        }
-        set
-        {
-            direction_ = value;
-        }
-    }
+    
     private ObjectData data_ = default;
     private ObjectType oType_ = default;
     public ObjectType objectType
@@ -103,8 +80,6 @@ public class ObjectProperty : MonoBehaviour
         }
     }
 
-    public Transform movePoint = default;
-
     private ColorSetter colorSetter = default;
     private ObjectTiling objectTiling = default;
 
@@ -117,6 +92,7 @@ public class ObjectProperty : MonoBehaviour
             return atrArr;
         }
     }
+    private List<Attribute> removeAtrs = default;
 
     public bool FindAttribute(int id)
     {
@@ -168,6 +144,7 @@ public class ObjectProperty : MonoBehaviour
         anim.enabled = false;
         anim.enabled = true;
         atrArr = new List<Attribute>();
+        removeAtrs = new List<Attribute>();
     }
     void Start()
     {
@@ -228,11 +205,7 @@ public class ObjectProperty : MonoBehaviour
         {
             atr.Execute();
         }
-        Move();
-    }
-    void Move()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, 2000f * Time.deltaTime);
+        RemoveAttribute();
     }
     public void InitTest()
     {
@@ -275,6 +248,37 @@ public class ObjectProperty : MonoBehaviour
         }
         atr.Attached(gameObject);
         atrArr.Add(atr);
+    }
+    public bool AddRemoveAttribute(int id)
+    {
+        bool isSuccessAddRemove = false;
+
+        if(!FindAttribute(id))
+        {
+            return false;
+        }
+
+        Attribute removeAtr = default;
+        foreach(Attribute atr in atrArr)
+        {
+            if(atr.Equals(id))
+            {
+                removeAtr = atr;
+                break;
+            }
+        }
+
+        removeAtrs.Add(removeAtr);
+        isSuccessAddRemove = true;
+        return isSuccessAddRemove;
+    }
+    public void RemoveAttribute()
+    {
+        if(removeAtrs.Count <= 0)
+            return;
+
+        atrArr.RemoveAll(removeAtrs.Contains);
+        removeAtrs = new List<Attribute>();
     }
 
     public void ResetAtrs()

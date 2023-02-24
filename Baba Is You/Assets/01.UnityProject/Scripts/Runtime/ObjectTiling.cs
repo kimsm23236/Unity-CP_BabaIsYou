@@ -6,7 +6,15 @@ public class ObjectTiling : MonoBehaviour
 {
     private bool isTilingObject = default;
     private Animator ownAnimator = default;
-    private ObjectProperty ownerOPC = default;
+    private ObjectProperty objectProperty = default;
+    private ObjectMovement objectMovement = default;
+    private GridPosition position
+    {
+        get
+        {
+            return objectMovement.position;
+        }
+    }
     private ObjectController objectController = default;
 
     private int width_ = default;
@@ -20,6 +28,7 @@ public class ObjectTiling : MonoBehaviour
 
     public delegate void EventHandler();
     public EventHandler onInitObject;
+    public EventHandler onTiling;
     //
     // Start is called before the first frame update
     void Awake()
@@ -27,7 +36,8 @@ public class ObjectTiling : MonoBehaviour
         GameObject gObjs = GFunc.GetRootObj("GameObjs");
         objectController = gObjs.FindChildObj("ObjectController").GetComponentMust<ObjectController>();
         ownAnimator = gameObject.GetComponentMust<Animator>();
-        ownerOPC = gameObject.GetComponentMust<ObjectProperty>();
+        objectProperty = gameObject.GetComponentMust<ObjectProperty>();
+        objectMovement = gameObject.GetComponentMust<ObjectMovement>();
         onInitObject = new EventHandler(Init);
     }
     void Start()
@@ -35,11 +45,14 @@ public class ObjectTiling : MonoBehaviour
         GameObject gObjs = GFunc.GetRootObj("GameObjs");
         width_ = gObjs.FindChildObj("Grid").GetComponentMust<GridController>().gridData.width_;
         height_ = gObjs.FindChildObj("Grid").GetComponentMust<GridController>().gridData.height_;
+        // objectMovement.onMoved += Tiling; 
+        onTiling = new EventHandler(Tiling);
+        Tiling();
     }
 
     void Init()
     {
-        if(GData.OBJ_ID_TILING.Contains(ownerOPC.id))
+        if(GData.OBJ_ID_TILING.Contains(objectProperty.id))
         {
             isTilingObject = true;
             //ownAnimator.SetInteger("id", ownerOPC.id);
@@ -50,8 +63,7 @@ public class ObjectTiling : MonoBehaviour
             this.enabled = false;
             return;
         }
-            
-        StartCoroutine(Tiling());
+
     }
 
     void CheckTiling()
@@ -61,7 +73,7 @@ public class ObjectTiling : MonoBehaviour
             
         animNum = 0;
 
-        GridPosition curPos = gameObject.GetComponentMust<ObjectProperty>().position;
+        GridPosition curPos = position;
         for(int i = 0; i < 4; i++)
         {
             GridPosition nextPos = new GridPosition();
@@ -77,7 +89,7 @@ public class ObjectTiling : MonoBehaviour
             List<ObjectProperty> nextPosObjs = objectController.GetObjPropByPos(nextPos);
             foreach(ObjectProperty nextObj in nextPosObjs)
             {
-                if(ownerOPC.id == nextObj.id)
+                if(objectProperty.id == nextObj.id)
                 {
                     animNum += di[i];
                 }
@@ -87,22 +99,15 @@ public class ObjectTiling : MonoBehaviour
     }
     void SetAnimProp()
     {
+        ownAnimator.SetInteger("animValue", animNum);
+        ownAnimator.SetInteger("id", objectProperty.id);
+    }
+    void Tiling()
+    {
         if(isTilingObject == false)
             return;
 
-        ownAnimator.SetInteger("animValue", animNum);
-        ownAnimator.SetInteger("id", ownerOPC.id);
-    }
-    IEnumerator Tiling()
-    {
-        while(true)
-        {
-            if(isTilingObject == false)
-                yield break;
-
-            yield return null;
-            CheckTiling();
-            SetAnimProp(); 
-        }
+        CheckTiling();
+        SetAnimProp(); 
     }
 }

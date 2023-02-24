@@ -30,7 +30,7 @@ public class AtrSink : Attribute
         bool isOnOverlap = false;
         foreach(ObjectProperty opc in overlaps)
         {
-            if(owner.GetComponentMust<ObjectProperty>() == opc)
+            if(owner == opc.gameObject)
                 continue;
 
             isOnOverlap = true;
