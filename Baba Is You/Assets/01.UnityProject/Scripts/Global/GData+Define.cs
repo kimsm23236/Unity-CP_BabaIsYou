@@ -19,6 +19,7 @@ public class ObjectData
     public string otype;
     public string ttype;
     public string sprite_name;
+    public string sprite_path;
     public string animator_name;
     public string animator_path;
     public string basecolor;

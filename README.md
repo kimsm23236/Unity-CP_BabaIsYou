@@ -27,6 +27,7 @@ rf.1.
 rf.2.               
 규칙을 RuleMakingSystem에서 ObjectProperty의 배열로 관리하고 있었으나 이러한 방식이 규칙을 관리하고 다루는데 있어 불편하다고 생각되어 담당하던 규칙 적용 및 규칙 해제 등을 Rule 클래스를 따로 만들어서 담당하게 하고 Rule을 RuleMakingSystem에서 관리하게끔 하여 객체지향성을 좀더 높여보았음        
 
-2023-02-27 / v0.1.7 / Level Editor Tool Base           
+2023-02-27 / v0.1.7 / Level Editor Tool Base     
+2023-02-28 / v0.1.8 / Working Level Editor Tool                  
               
 

@@ -12,7 +12,7 @@ public class SetGridWindow : EditorWindow
     [SerializeField]
     public bool isNeededInitialize = true;
     [SerializeField]
-    private GridController gridController = default;
+    private GridController_Edit gridController = default;
     public static void Init()
     {
         // 현재 활성화된 윈도우 가져오며, 없으면 새로 생성
@@ -31,7 +31,7 @@ public class SetGridWindow : EditorWindow
     {
         if(isNeededInitialize)
         {
-            gridController = GFunc.GetRootObj("GameObjs").FindChildObj("Grid").GetComponentMust<GridController>();
+            gridController = GFunc.GetRootObj("GameObjs").FindChildObj("Grid").GetComponentMust<GridController_Edit>();
             gridController.Init_Editor();
             isNeededInitialize = false;
             GFunc.Log("Set Grid Window Init");

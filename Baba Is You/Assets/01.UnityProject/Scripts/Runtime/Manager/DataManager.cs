@@ -41,7 +41,7 @@ public class DataManager
 
     public void LoadObjsDatas()
     {
-        var json = Resources.Load<TextAsset>("Datas/ObjsData_v6").text;
+        var json = Resources.Load<TextAsset>("Datas/ObjsData_v7").text;
         var arrObjDatas = JsonConvert.DeserializeObject<ObjectData[]>(json);
         this.dicObjData = arrObjDatas.ToDictionary(x => x.id);
     }
