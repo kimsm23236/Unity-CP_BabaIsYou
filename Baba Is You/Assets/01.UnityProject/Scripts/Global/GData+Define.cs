@@ -40,6 +40,16 @@ public class ColorData
     public float b;
 }
 
+[System.Serializable]
+public class TempStageData
+{
+    public int id;
+    public string name;
+    public int row;
+    public int col;
+    public int[,] cells;
+}
+
 public class StageData
 {
     public int id;
@@ -78,6 +88,33 @@ public class StageData
             LogLine = string.Empty;
         }
         return sp;
+    }
+    public void Convert_IntArrayToString(int[,] arr)
+    {
+        string newCellString = string.Empty;
+
+        newCellString += "[";
+        for(int y = 0; y < arr.GetLength(0); y++)
+        {
+            newCellString += "{";
+            for(int x = 0; x < arr.GetLength(1); x++)
+            {
+                newCellString += arr[y,x].ToString();
+                if(x < arr.GetLength(1) - 1)
+                    newCellString += ", ";
+                else
+                    newCellString += "}";
+            }
+            if(y < arr.GetLength(0) - 1)
+            {
+                newCellString += ", ";
+            }
+            else
+            {
+                newCellString += "]";
+            }
+        }
+        cells = newCellString;
     }
 }
 public class StageProperty

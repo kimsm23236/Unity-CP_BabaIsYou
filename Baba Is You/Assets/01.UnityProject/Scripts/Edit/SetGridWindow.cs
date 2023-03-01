@@ -6,13 +6,27 @@ using UnityEditor;
 public class SetGridWindow : EditorWindow
 {
     [SerializeField]
-    private int width;
+    private static int width;
     [SerializeField]
-    private int height;
+    private static int height;
     [SerializeField]
     public bool isNeededInitialize = true;
     [SerializeField]
     private GridController_Edit gridController = default;
+    public static int GridWidth
+    {
+        get
+        {
+            return width;
+        }
+    }
+    public static int GridHeight
+    {
+        get
+        {
+            return height;
+        }
+    }
     public static void Init()
     {
         // 현재 활성화된 윈도우 가져오며, 없으면 새로 생성

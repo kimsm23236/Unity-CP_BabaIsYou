@@ -192,6 +192,10 @@ public class ObjectProperty : MonoBehaviour
             tType_ = TextType.NONE;
             break;
         }
+        if(id_ == 31)
+        {
+            AddAttribute(8);
+        }
         
         colorSetter.onInitObject(id, oType_);
         objectTiling.onInitObject();
@@ -242,6 +246,21 @@ public class ObjectProperty : MonoBehaviour
             break;
             case 4:
             atr = new AtrSink();
+            break;
+            case 5:
+            atr = new AtrDefeat();
+            break;
+            case 6:
+            atr = new AtrHot();
+            break;
+            case 7:
+            atr = new AtrMelt();
+            break;
+            case 8:
+            atr = new AtrCursor();
+            break;
+            case 9:
+            // atr = new AtrSink();
             break;
             default:
             break;

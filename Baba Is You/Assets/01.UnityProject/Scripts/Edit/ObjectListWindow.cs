@@ -92,4 +92,12 @@ public class ObjectListWindow : EditorWindow
         selectedTexture = default;
         selectedObjId = -1;
     }
+    public static bool IsObjectSelected()
+    {
+        bool isSeleted = true;
+
+        isSeleted = selectedObjId >= 0;
+        isSeleted = selectedTexture != null || selectedTexture != default;
+        return isSeleted;
+    }
 }

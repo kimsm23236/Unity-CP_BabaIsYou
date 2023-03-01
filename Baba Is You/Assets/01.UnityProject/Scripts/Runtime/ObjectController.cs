@@ -119,7 +119,7 @@ public class ObjectController : MonoBehaviour
     //
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GameObject gameObjs = GFunc.GetRootObj("GameObjs");
         gridController = gameObjs.FindChildObj("Grid").GetComponentMust<GridController>();
@@ -134,6 +134,10 @@ public class ObjectController : MonoBehaviour
         onChangedTurn += AllTilingObjsTiling;
         //StartCoroutine(IncreaseTurn());
         //StartCoroutine(DecreaseTurn());
+    }
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -189,6 +193,29 @@ public class ObjectController : MonoBehaviour
                 }
             }
         }
+    }
+    public void CreateObject(int id, int x, int y)
+    {
+        GameObject newObj = Instantiate(gameObjPrefab, transform);
+        newObj.transform.SetParent(gameObject.transform);
+        newObj.SetActive(true);
+
+        ObjectProperty opc = newObj.GetComponentMust<ObjectProperty>();
+        ObjectMovement omc = newObj.GetComponentMust<ObjectMovement>();
+        ObjectTiling otc = newObj.GetComponentMust<ObjectTiling>();
+        omc.movePoint = newObj.FindChildObj("MovePoint").transform;
+        omc.movePoint.SetParent(gridController.transform);
+
+        GridPosition pos = new GridPosition();
+        pos.x = x;
+        pos.y = y;
+        opc.id = id;
+
+        omc.position = pos;
+        omc.movePoint.position = gridController.gridObjs[y, x].position;
+        objectPool.Add(newObj);
+        opc.InitObject();
+        newObj.SetLocalPos(gridController.gridObjs[y,x].transform.localPosition);
     }
     public void SetupObjectData()
     {

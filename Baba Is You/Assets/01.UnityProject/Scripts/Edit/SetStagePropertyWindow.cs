@@ -12,7 +12,7 @@ public class SetStagePropertyWindow : EditorWindow
     [SerializeField]
     public bool isNeededInitialize = true;
     [SerializeField]
-    private StageProperty stageProperty;
+    public static StageProperty stageProperty;
 
     public static void Init()
     {

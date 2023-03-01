@@ -8,12 +8,19 @@ using UnityEngine.EventSystems;
 using UnityEditor;
 
 [ExecuteAlways]
-public class Tile_Edit : MonoBehaviour
+public class Tile_Edit : MonoBehaviour, IMouse
 {
     private Image image;
     private Sprite sprite;
-    private Sprite prevSprite;
+    private Sprite defaultSprite;
     private int objectId;
+    public int objectID
+    {
+        get
+        {
+            return objectId;
+        }
+    }
     GridController_Edit gridController_ = default;
     private bool isMouseOver = default;
     public delegate void EventHandler();
@@ -33,7 +40,7 @@ public class Tile_Edit : MonoBehaviour
         onMouseOver = new EventHandler(OnPointing);
         onSetupObject = new EventHandler_Int_Texture(SetObject);
 
-        isMouseOver = false;
+        defaultSprite = default;
         objectId = -1;
     }
 
@@ -82,6 +89,33 @@ public class Tile_Edit : MonoBehaviour
     {
         objectId = id;
         onSetupTexture(texture);
+    }
+    public void MouseEnter()
+    {
+        // 이미지 바꾸기
+        Texture2D texture = ObjectListWindow.selectedTexture;
+        if(texture == null || texture == default)
+            return;
+        Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        image.sprite = newSprite;
+        GFunc.Log("Editor Tile Mouse Enter");
+    }
+    public void MouseExit()
+    {
+        image.sprite = defaultSprite;
+        GFunc.Log("Editor Tile Mouse Exit");
+    }
+    public void MouseClick_L()
+    {
+        objectId = ObjectListWindow.selectedObjId;
+        Texture2D texture = ObjectListWindow.selectedTexture;
+        defaultSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        image.sprite = defaultSprite;
+    }
+    public void MouseClick_R()
+    {
+        defaultSprite = default;
+        image.sprite = defaultSprite;
     }
 }
 #endif
