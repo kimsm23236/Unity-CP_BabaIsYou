@@ -36,12 +36,12 @@ public class ObjectMovement : MonoBehaviour
 
     void Awake()
     {
-
+        objectProperty = gameObject.GetComponentMust<ObjectProperty>();
+        onMoved = new EventHandler(MoveLog);
     }
     void Start()
     {
-        objectProperty = gameObject.GetComponentMust<ObjectProperty>();
-        onMoved = new EventHandler(MoveLog);
+        // objectProperty = gameObject.GetComponentMust<ObjectProperty>();
     }
     void Update()
     {

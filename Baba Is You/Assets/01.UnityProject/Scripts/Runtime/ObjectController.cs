@@ -123,7 +123,7 @@ public class ObjectController : MonoBehaviour
     {
         GameObject gameObjs = GFunc.GetRootObj("GameObjs");
         gridController = gameObjs.FindChildObj("Grid").GetComponentMust<GridController>();
-        ruleMakingSystem = GFunc.GetRootObj("TempRMS").GetComponentMust<RuleMakingSystem>();
+        ruleMakingSystem = GFunc.GetRootObj("RuleMaker").GetComponentMust<RuleMakingSystem>();
         gameObjPrefab = gameObject.FindChildObj("Object");
         gameObjPrefab.SetActive(false);
         objectPool = new List<GameObject>();
@@ -155,8 +155,18 @@ public class ObjectController : MonoBehaviour
     // { stage load process
     public void StageLoad(StageProperty stageProperty)
     {
+        DeleteObject();
         CreateObject(stageProperty);
         SetupObjectData();
+    }
+    public void DeleteObject()
+    {
+        foreach(GameObject obj in objectPool)
+        {
+            obj.GetComponentMust<ObjectProperty>().ResetAtrs();
+            Destroy(obj, 0.1f);
+        }
+        objectPool = new List<GameObject>();
     }
     public void CreateObject(StageProperty stageProperty)
     {
@@ -194,7 +204,7 @@ public class ObjectController : MonoBehaviour
             }
         }
     }
-    public void CreateObject(int id, int x, int y)
+    public GameObject CreateObject(int id, int x, int y)
     {
         GameObject newObj = Instantiate(gameObjPrefab, transform);
         newObj.transform.SetParent(gameObject.transform);
@@ -216,6 +226,7 @@ public class ObjectController : MonoBehaviour
         objectPool.Add(newObj);
         opc.InitObject();
         newObj.SetLocalPos(gridController.gridObjs[y,x].transform.localPosition);
+        return newObj;
     }
     public void SetupObjectData()
     {
@@ -226,6 +237,7 @@ public class ObjectController : MonoBehaviour
             ObjectMovement omc = obj.GetComponentMust<ObjectMovement>();
             int x = omc.position.x;
             int y = omc.position.y;
+            omc.objectProperty = opc;
             opc.InitObject();
             obj.SetLocalPos(gridController.gridObjs[y,x].transform.localPosition);
         }

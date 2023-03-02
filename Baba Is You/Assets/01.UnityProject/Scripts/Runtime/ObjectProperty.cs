@@ -192,31 +192,29 @@ public class ObjectProperty : MonoBehaviour
             tType_ = TextType.NONE;
             break;
         }
+        taggedId = data_.tag;
+        colorSetter.onInitObject(id, oType_);
+        objectTiling.onInitObject();
         if(id_ == 31)
         {
             AddAttribute(8);
         }
+        else if(id_ >= 35 && id_ <= 42)
+        {
+            AddAttribute(9);
+        }
         
-        colorSetter.onInitObject(id, oType_);
-        objectTiling.onInitObject();
         
-        taggedId = data_.tag;
+        
+        
     }
     void Update()
     {
-        InitTest();
         foreach(Attribute atr in atrArr)
         {
             atr.Execute();
         }
         RemoveAttribute();
-    }
-    public void InitTest()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            InitObject();
-        }
     }
     public bool IsVerb()
     {
@@ -260,7 +258,7 @@ public class ObjectProperty : MonoBehaviour
             atr = new AtrCursor();
             break;
             case 9:
-            // atr = new AtrSink();
+            atr = new AtrLevel();
             break;
             default:
             break;
@@ -302,6 +300,10 @@ public class ObjectProperty : MonoBehaviour
 
     public void ResetAtrs()
     {
+        foreach(Attribute atr in atrArr)
+        {
+            atr.Init();
+        }
         atrArr = new List<Attribute>();
     }
 }

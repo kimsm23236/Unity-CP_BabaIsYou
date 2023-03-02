@@ -7,7 +7,7 @@ public class AtrCursor : Attribute
     private GridController gridController = default;
     public AtrCursor()
     {
-        AttributeData atrData = DataManager.Instance.dicAtrData[0];
+        AttributeData atrData = DataManager.Instance.dicAtrData[8];
         property_ = new AttributeProperty();
         property_.id = atrData.id;
         property_.name = atrData.name;
@@ -55,6 +55,10 @@ public class AtrCursor : Attribute
                 nextX = position_.x;
                 nextY = position_.y + 1;
             }
+            else if(Input.GetKeyDown(KeyCode.Return))
+            {
+                OnOverlap();
+            }
             ownerOmc.direction = nextDirection;
             GridPosition nextPos = new GridPosition();
             nextPos.x = nextX;
@@ -95,6 +99,26 @@ public class AtrCursor : Attribute
                 }
             }
             */
+        }
+    }
+    public override void OnOverlap()
+    {
+        base.OnOverlap();
+        foreach(ObjectProperty opc in overlaps)
+        {
+            // win you 겹침 작업
+            if(opc.FindAttribute(9))
+            {
+                if(GameManager.Instance == null)
+                {
+                    GFunc.Log("GameManager Instance is Null");
+                }
+                else if(GameManager.Instance.onEnterLevel == default)
+                {
+                    GFunc.Log("GameManager onEnterLevel is Null");
+                }
+                GameManager.Instance.onEnterLevel(opc.TagId);
+            }
         }
     }
     private bool MoveCheck(int nextX, int nextY)

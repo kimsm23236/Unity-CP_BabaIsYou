@@ -20,7 +20,7 @@ public class AtrYou : Attribute
         base.Attached(gObj_);
         GameObject gameObj = GFunc.GetRootObj("GameObjs");
         gridController = gameObj.FindChildObj("Grid").GetComponentMust<GridController>();
-        rms = GFunc.GetRootObj("TempRMS").GetComponentMust<RuleMakingSystem>();
+        rms = GFunc.GetRootObj("RuleMaker").GetComponentMust<RuleMakingSystem>();
     }
     public override void Execute()
     {

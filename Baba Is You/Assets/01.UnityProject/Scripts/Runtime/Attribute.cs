@@ -37,6 +37,7 @@ public class Attribute
         objectPool = gameObj.FindChildObj("ObjectController").GetComponentMust<ObjectController>().Pool;
         objectController = gameObj.FindChildObj("ObjectController").GetComponentMust<ObjectController>();
         overlaps = new List<ObjectProperty>();
+        GFunc.Log("속성 붙임");
     }
     public virtual void Execute()
     {
@@ -46,14 +47,28 @@ public class Attribute
     {
         GridPosition ownerPos = ownerOmc.position;
         //ObjectController occ = GFunc.GetRootObj("GameObjs").FindChildObj("ObjectController").GetComponentMust<ObjectController>();
-        
+        overlaps = new List<ObjectProperty>();
         foreach(GameObject obj in objectPool)
         {
-            if(obj.GetComponentMust<ObjectMovement>().position == ownerPos)
+            ObjectMovement omc = obj.GetComponent<ObjectMovement>();
+            if(omc == null || omc == default)
+            {
+                GFunc.Log("omc is null or default");
+                continue;
+            }
+
+            if(omc.position == ownerPos)
             {
                 overlaps.Add(obj.GetComponentMust<ObjectProperty>());
             }
         }
+    }
+    public virtual void Init()
+    {
+        GameObject gameObj = GFunc.GetRootObj("GameObjs");
+        objectPool = new List<GameObject>();
+        overlaps = new List<ObjectProperty>();
+        GFunc.Log("Attribute Init");
     }
     public bool Equals(int id)
     {

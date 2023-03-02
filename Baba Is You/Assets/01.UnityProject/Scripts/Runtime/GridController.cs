@@ -75,29 +75,14 @@ public class GridController : MonoBehaviour
     }
     public void DeleteDebugGridText()
     {
-        for(int x = 0 ; x < cachedGridObjs.GetLength(0); x++)
+        for(int x = 0 ; x < cachedGridObjs.GetLength(1); x++)
         {
-            for(int y = 0 ; y < cachedGridObjs.GetLength(1); y++)
-            {
-                Destroy(cachedGridObjs[y,x], 0.1f);
-            }
-        }
-    }
-
-    public void DeleteDebugGridText_Edit()
-    {
-        if(cachedGridObjs[0,0] == null || cachedGridObjs[0,0] == default)
-        {
-            GFunc.Log("cached null");
-            return;
-        }
-        for(int x = 0 ; x < cachedGridObjs.GetLength(0); x++)
-        {
-            for(int y = 0 ; y < cachedGridObjs.GetLength(1); y++)
+            for(int y = 0 ; y < cachedGridObjs.GetLength(0); y++)
             {
                 if(cachedGridObjs[y,x] == null || cachedGridObjs[y,x] == default)
                     continue;
-                DestroyImmediate(cachedGridObjs[y,x].gameObject, true);
+                GFunc.Log($"{cachedGridObjs[y,x].gameObject.name} Destroy");
+                Destroy(cachedGridObjs[y,x].gameObject, 0.1f);
             }
         }
     }
@@ -109,6 +94,7 @@ public class GridController : MonoBehaviour
     public void SetupGridData(StageProperty stageProperty)
     {
         DeleteDebugGridText();
+        cachedGridObjs = new Transform[50, 50];
         gridData = new GridData();
         gridData.width_ = stageProperty.col;
         gridData.height_ = stageProperty.row;
@@ -116,26 +102,6 @@ public class GridController : MonoBehaviour
         grid_ = new Grid(gridData.width_, gridData.height_);
         cachedGridObjs = new Transform[gridData.height_, gridData.width_];
         // 일단 그리드 디버그 오브젝트 생성까지 한번에, 나중에 바꿔야됨
-        CreateDebugGridText();
-    }
-    public void Init_Editor()
-    {
-        debugGridObjectPrefab.SetActive(false);
-        if(isNeedInitForEditor)
-        {
-            isNeedInitForEditor = false;
-            cachedGridObjs = new Transform[50, 50];
-            GFunc.Log("cachedGridObjs 50 50 Init");
-        } 
-        GFunc.Log("Init");
-    }
-    public void SetupGrid_Editor(int width, int height)
-    {
-        DeleteDebugGridText_Edit();
-        gridData = new GridData();
-        gridData.width_ = width;
-        gridData.height_ = height;
-        grid_ = new Grid(gridData.width_, gridData.height_);
         CreateDebugGridText();
     }
 }

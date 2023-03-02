@@ -53,15 +53,15 @@ public class RuleMakingSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
-        { 
-            curLevelGridData = GFunc.GetRootObj("GameObjs").FindChildObj("Grid").GetComponentMust<GridController>().gridData;
-            gridWidth_ = curLevelGridData.width_;
-            gridHeight_ = curLevelGridData.height_;
-            isNeedUpdateRule = true;
-            InitList();
-        }
         UpdateRule();
+    }
+    public void Init()
+    {
+        curLevelGridData = GFunc.GetRootObj("GameObjs").FindChildObj("Grid").GetComponentMust<GridController>().gridData;
+        gridWidth_ = curLevelGridData.width_;
+        gridHeight_ = curLevelGridData.height_;
+        isNeedUpdateRule = true;
+        InitList();
     }
     public void InitList()
     {
@@ -108,6 +108,7 @@ public class RuleMakingSystem : MonoBehaviour
             int x = tObj.position.x;
             int y = tObj.position.y;
             textObjArr[y,x] = tObj;
+            GFunc.Log($"tobj : {textObjArr[y,x].gameObject.name}");
         }
     }
     public void UpdateRule()

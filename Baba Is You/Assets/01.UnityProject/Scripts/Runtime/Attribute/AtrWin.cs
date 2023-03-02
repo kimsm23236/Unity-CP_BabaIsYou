@@ -24,12 +24,13 @@ public class AtrWin : Attribute
     public override void OnOverlap()
     {
         base.OnOverlap();
+        
         foreach(ObjectProperty opc in overlaps)
         {
             // win you 겹침 작업
             if(opc.FindAttribute(0))
             {
-                ClearLevel();
+                GameManager.Instance.onEnterLevel(300);
             }
         }
     }
