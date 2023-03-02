@@ -19,6 +19,7 @@ public class AtrYou : Attribute
     {
         base.Attached(gObj_);
         GameObject gameObj = GFunc.GetRootObj("GameObjs");
+        gObj_.transform.SetAsLastSibling();
         gridController = gameObj.FindChildObj("Grid").GetComponentMust<GridController>();
         rms = GFunc.GetRootObj("RuleMaker").GetComponentMust<RuleMakingSystem>();
     }

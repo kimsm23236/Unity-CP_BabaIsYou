@@ -91,6 +91,12 @@ public class Rule
     void InitObject()
     {
         // 나중에
+        int objId = rule_Object_.TagId;
+        foreach(ObjectProperty opc in sbjOBjs)
+        {
+            opc.InitObject(objId);
+        }
+        
     }
     void SelfVerify()
     {

@@ -5,8 +5,10 @@ using UnityEngine;
 public static partial class GData
 {
     public const string SCENE_NAME_TITLE = "01.TitleScene";
-    public const string SCENE_NAME_STAGE_1 = "02.PlayScene";
-    public const string SCENE_NAME_STAGE_2 = "03.PlayScene_Stage2";
+    public const string SCENE_NAME_PLAY = "02.PlayScene";
+    // public const string SCENE_NAME_STAGE_2 = "03.PlayScene_Stage2";
+
+    public const int SOUNDMAXCOUNT = 19;
 
     public const string OBJ_NAME_CURRENT_LEVEL = "Level_1";
     public static List<int> OBJ_ID_TILING = new List<int> {3, 5, 6, 10};
@@ -124,4 +126,9 @@ public class StageProperty
     public int row;
     public int col;
     public string[,] objs;
+}
+
+public enum Sound
+{
+    Bgm, Effect, MaxCount
 }

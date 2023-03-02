@@ -39,6 +39,7 @@ public class ObjectTiling : MonoBehaviour
         objectProperty = gameObject.GetComponentMust<ObjectProperty>();
         objectMovement = gameObject.GetComponentMust<ObjectMovement>();
         onInitObject = new EventHandler(Init);
+        onTiling = new EventHandler(Tiling);
     }
     void Start()
     {
@@ -46,7 +47,7 @@ public class ObjectTiling : MonoBehaviour
         width_ = gObjs.FindChildObj("Grid").GetComponentMust<GridController>().gridData.width_;
         height_ = gObjs.FindChildObj("Grid").GetComponentMust<GridController>().gridData.height_;
         // objectMovement.onMoved += Tiling; 
-        onTiling = new EventHandler(Tiling);
+        
         Tiling();
     }
 

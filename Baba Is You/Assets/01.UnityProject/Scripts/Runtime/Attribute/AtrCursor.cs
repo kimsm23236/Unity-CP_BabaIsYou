@@ -117,7 +117,7 @@ public class AtrCursor : Attribute
                 {
                     GFunc.Log("GameManager onEnterLevel is Null");
                 }
-                GameManager.Instance.onEnterLevel(opc.TagId);
+                GameManager.Instance.onEnterLevel(opc.TagId, LoadType.ToLevel);
             }
         }
     }

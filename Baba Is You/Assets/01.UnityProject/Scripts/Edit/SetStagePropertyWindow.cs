@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
 public class SetStagePropertyWindow : EditorWindow
 {
     [SerializeField]
@@ -59,3 +60,4 @@ public class SetStagePropertyWindow : EditorWindow
         }
     }
 }
+#endif

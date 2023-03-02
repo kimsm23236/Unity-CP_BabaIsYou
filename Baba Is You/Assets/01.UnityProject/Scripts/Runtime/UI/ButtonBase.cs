@@ -15,11 +15,13 @@ public class ButtonBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     protected Color outLayeredColor_Locked = default;
     protected Color inLayeredColor_Locked = default;
     // Start is called before the first frame update
-    public virtual void Start()
+    void Awake()
     {
         outLayeredImage = gameObject.FindChildObj("Layered1").GetComponentMust<Image>();
         inLayeredImage = gameObject.FindChildObj("Layered2").GetComponentMust<Image>();
-
+    }
+    public virtual void Start()
+    {
         outLayeredColor.a = 255;
         inLayeredColor.a = 255;
         outLayeredImage.color = outLayeredColor;
@@ -54,10 +56,19 @@ public class ButtonBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         /* Do Nothing */
     }
-    protected void Lock()
+    public virtual void Lock()
     {
         isLocked = true;
         outLayeredImage.color = outLayeredColor_Locked;
         inLayeredImage.color = inLayeredColor_Locked;
+    }
+    public virtual void UnLock()
+    {
+        if(!isLocked)
+            return;
+
+        isLocked = false;
+        outLayeredImage.color = outLayeredColor;
+        inLayeredImage.color = inLayeredColor;
     }
 }

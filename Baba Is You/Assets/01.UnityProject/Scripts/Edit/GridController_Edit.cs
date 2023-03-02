@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+#if UNITY_EDITOR
 [ExecuteAlways]
 public class GridController_Edit : MonoBehaviour
 {
@@ -127,3 +127,4 @@ public class GridController_Edit : MonoBehaviour
         CreateDebugGridText();
     }
 }
+#endif

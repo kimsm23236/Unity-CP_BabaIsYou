@@ -39,7 +39,7 @@ public class StageManager : MonoBehaviour
         canvasScaler = gameObjs.GetComponentMust<CanvasScaler>();
         gridController = gameObjs.FindChildObj("Grid").GetComponentMust<GridController>();
         objectController = gameObjs.FindChildObj("ObjectController").GetComponentMust<ObjectController>();
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
         GFunc.Log("Stage Manager Awake");
     }
     void Start()
@@ -69,6 +69,9 @@ public class StageManager : MonoBehaviour
         
         gridController.SetupGridData(currentStage);
         canvasScaler.referenceResolution = new Vector2(currentStage.col * 24, currentStage.row * 24);
+        Screen.SetResolution(currentStage.col * 24, currentStage.row * 24, true);
         objectController.StageLoad(currentStage);
+        RuleMakingSystem ruleMakingSystem = GFunc.GetRootObj("RuleMaker").GetComponentMust<RuleMakingSystem>();
+        ruleMakingSystem.Init();
     }
 }

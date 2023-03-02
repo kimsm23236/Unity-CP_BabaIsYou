@@ -75,7 +75,7 @@ public class DataManager
     }
     public void LoadStageDatas()
     {
-        var json = Resources.Load<TextAsset>("Datas/temp").text;
+        var json = Resources.Load<TextAsset>("Datas/LevelData").text;
         var arrStgDatas = JsonConvert.DeserializeObject<StageData[]>(json);
         this.dicStgData = arrStgDatas.ToDictionary(x => x.id);
     }

@@ -40,6 +40,7 @@ public class ObjectController : MonoBehaviour
         }
         GFunc.Log($"move push stack, turnCount : {turnCount}");
         moveStack.Push(command as Move);
+        SoundManager.Instance.PlayerMove();
         command.Execute();
     }
     public void PushLive(ICommand command)
@@ -167,6 +168,7 @@ public class ObjectController : MonoBehaviour
             Destroy(obj, 0.1f);
         }
         objectPool = new List<GameObject>();
+        tilingObjects = new List<ObjectTiling>();
     }
     public void CreateObject(StageProperty stageProperty)
     {
@@ -193,10 +195,7 @@ public class ObjectController : MonoBehaviour
                     pos.x = x;
                     pos.y = y;
                     opc.id = id;
-                    if(GData.OBJ_ID_TILING.Contains(id))
-                    {
-                        tilingObjects.Add(otc);
-                    }
+                    tilingObjects.Add(otc);
                     omc.position = pos;
                     omc.movePoint.position = gridController.gridObjs[y, x].position;
                     objectPool.Add(newObj);

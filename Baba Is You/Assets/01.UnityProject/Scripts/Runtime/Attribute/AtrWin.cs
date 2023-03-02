@@ -30,7 +30,7 @@ public class AtrWin : Attribute
             // win you 겹침 작업
             if(opc.FindAttribute(0))
             {
-                GameManager.Instance.onEnterLevel(300);
+                GameManager.Instance.onEnterLevel(300, LoadType.ToWorld);
             }
         }
     }

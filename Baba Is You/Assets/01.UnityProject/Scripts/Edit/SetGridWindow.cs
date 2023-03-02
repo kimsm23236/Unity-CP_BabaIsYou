@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
+
 public class SetGridWindow : EditorWindow
 {
     [SerializeField]
@@ -75,3 +77,4 @@ public class SetGridWindow : EditorWindow
         }
     }
 }
+#endif

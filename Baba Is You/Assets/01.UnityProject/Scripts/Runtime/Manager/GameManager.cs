@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState
+public enum LoadType
 {
     NONE = -1,
-    InWorld, InLevel
+    ToWorld, ToLevel, RestartLevel
 }
 public class GameManager : MonoBehaviour
 {
     // singleton instance
     private static GameManager instance_ = null;
     private static bool isLoadLevel = false;
-    private GameState state = default;
+    public static int currentLevelId = -1;
+    private LoadType loadType = default;
     private ObjectController objectController = default;
     private RuleMakingSystem ruleMakingSystem = default;
 
@@ -23,8 +24,15 @@ public class GameManager : MonoBehaviour
     private GameObject bg_World = default;
     [SerializeField]
     private GameObject bg_Level = default;
-    public delegate void EventHandler_OneParam(int id);
-    public EventHandler_OneParam onEnterLevel;
+    private bool isNeedInit = default;
+    public delegate void EventHandler();
+    public delegate void EventHandler_TwoParam(int id, LoadType type);
+    public EventHandler onInitGameManager;
+    public EventHandler_TwoParam onEnterLevel;
+
+    // UI
+    public PopupUI popupUI = default;
+    //
 
     // singleton access property
     public static GameManager Instance
@@ -54,8 +62,9 @@ public class GameManager : MonoBehaviour
         // 배경 설정
         bg_Level.SetActive(false);
         bg_World.SetActive(false);
-        DontDestroyOnLoad(gameObject);
-        
+        // DontDestroyOnLoad(gameObject);
+        onInitGameManager = () => isNeedInit = true;
+        isNeedInit = false;
         GFunc.Log("GameManager Awake");
     }
     // Start is called before the first frame update
@@ -63,7 +72,7 @@ public class GameManager : MonoBehaviour
     {
         // 월드맵 로드
         bg_World.SetActive(true);
-        state = GameState.InWorld;
+        loadType = LoadType.ToWorld;
         //StageManager.Instance.SetStage(300);
         //StageManager.Instance.LoadStage();
         GameObject gameObjs = GFunc.GetRootObj("GameObjs");
@@ -73,9 +82,30 @@ public class GameManager : MonoBehaviour
         cursorPos = new GridPosition();
         cursorPos.x = 9;
         cursorPos.y = 15;
-        Req_LevelLoad(300);
-        onEnterLevel = new EventHandler_OneParam(Req_LevelLoad);
-
+        //Req_LevelLoad(300, LoadType.ToWorld);
+        onEnterLevel = new EventHandler_TwoParam(Req_LevelLoad);
+        onEnterLevel(300, LoadType.ToWorld);
+        GameObject uiObjs = GFunc.GetRootObj("UiObjs");
+        popupUI = uiObjs.FindChildObj("PausePopup").GetComponentMust<PopupUI>();
+    }
+    public void Init()
+    {
+        isNeedInit = false;
+        // 월드맵 로드
+        bg_World.SetActive(true);
+        loadType = LoadType.ToWorld;
+        //StageManager.Instance.SetStage(300);
+        //StageManager.Instance.LoadStage();
+        GameObject gameObjs = GFunc.GetRootObj("GameObjs");
+        objectController = gameObjs.FindChildObj("ObjectController").GetComponentMust<ObjectController>();
+        ruleMakingSystem = GFunc.GetRootObj("RuleMaker").GetComponentMust<RuleMakingSystem>();
+        // 플레이어 시작 위치 설정
+        cursorPos = new GridPosition();
+        cursorPos.x = 9;
+        cursorPos.y = 15;
+        //Req_LevelLoad(300, LoadType.ToWorld);
+        onEnterLevel = new EventHandler_TwoParam(Req_LevelLoad);
+        onEnterLevel(300, LoadType.ToWorld);
     }
 
     // Update is called once per frame
@@ -83,18 +113,12 @@ public class GameManager : MonoBehaviour
     {
         LoadProcess();
     }
-    void Req_LevelLoad(int id)
+    void Req_LevelLoad(int id, LoadType type)
     {
         StageManager.Instance.SetStage(id);
+        currentLevelId = id;
         isLoadLevel = true;
-        if(id == 300)
-        {
-            state = GameState.InWorld;
-        }
-        else
-        {
-            state = GameState.InLevel;
-        }
+        loadType = type;
     }
     void LoadProcess()
     {
@@ -102,23 +126,30 @@ public class GameManager : MonoBehaviour
             return;
         isLoadLevel = false;
 
-        if(state == GameState.InLevel)
+        if(loadType == LoadType.ToLevel)
         {
             bg_World.SetActive(false);
             bg_Level.SetActive(true);
             ObjectMovement omc = playerCursor.GetComponentMust<ObjectMovement>();
             cursorPos = omc.position;
+            SoundManager.Instance.Play(SoundManager.Instance.level, Sound.Bgm);
+            popupUI.restartLvButton_.UnLock();
+            popupUI.returnToWorldButton_.UnLock();
         }
 
         StageManager.Instance.LoadStage();
 
-        if(state == GameState.InWorld)
+        if(loadType == LoadType.ToWorld)
         {
             bg_World.SetActive(true);
             bg_Level.SetActive(false);
             playerCursor = objectController.CreateObject(31, cursorPos.x, cursorPos.y);
+            SoundManager.Instance.Play(SoundManager.Instance.world, Sound.Bgm);
+            
+            popupUI.restartLvButton_.Lock();
+            popupUI.returnToWorldButton_.Lock();
         }
 
-        ruleMakingSystem.Init();
+        // ruleMakingSystem.Init();
     }
 }

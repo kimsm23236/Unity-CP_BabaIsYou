@@ -13,6 +13,9 @@ public class Tile_Edit : MonoBehaviour, IMouse
     private Image image;
     private Sprite sprite;
     private Sprite defaultSprite;
+    private Color color;
+    private Color defaultColor;
+    private Color initColor;
     private int objectId;
     public int objectID
     {
@@ -39,7 +42,8 @@ public class Tile_Edit : MonoBehaviour, IMouse
         onSetupTexture = new EventHandler_Texture(SetSprite);
         onMouseOver = new EventHandler(OnPointing);
         onSetupObject = new EventHandler_Int_Texture(SetObject);
-
+        initColor = image.color;
+        defaultColor = image.color;
         defaultSprite = default;
         objectId = -1;
     }
@@ -98,11 +102,14 @@ public class Tile_Edit : MonoBehaviour, IMouse
             return;
         Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         image.sprite = newSprite;
+        string colorStr = DataManager.Instance.dicObjData[ObjectListWindow.selectedObjId].activatecolor;
+        image.color = GetColor(DataManager.Instance.dicColorData[colorStr]);
         GFunc.Log("Editor Tile Mouse Enter");
     }
     public void MouseExit()
     {
         image.sprite = defaultSprite;
+        image.color = defaultColor;
         GFunc.Log("Editor Tile Mouse Exit");
     }
     public void MouseClick_L()
@@ -111,11 +118,25 @@ public class Tile_Edit : MonoBehaviour, IMouse
         Texture2D texture = ObjectListWindow.selectedTexture;
         defaultSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         image.sprite = defaultSprite;
+        string colorStr = DataManager.Instance.dicObjData[ObjectListWindow.selectedObjId].activatecolor;
+        defaultColor = GetColor(DataManager.Instance.dicColorData[colorStr]);
+        image.color = defaultColor;
+        
     }
     public void MouseClick_R()
     {
         defaultSprite = default;
         image.sprite = defaultSprite;
+        image.color = initColor;
+        defaultColor = initColor;
+    }
+    public Color GetColor(float r, float g, float b, float a)
+    {
+        return new Color(r / 255f, g / 255f, b / 255f, a / 255f);
+    }
+    public Color GetColor(ColorData cData)
+    {
+        return new Color(cData.r / 255f, cData.g / 255f, cData.b / 255f, 1f);
     }
 }
 #endif

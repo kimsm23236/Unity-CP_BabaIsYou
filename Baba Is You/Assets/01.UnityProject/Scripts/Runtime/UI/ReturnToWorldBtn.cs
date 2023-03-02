@@ -9,7 +9,6 @@ public class ReturnToWorldBtn : ButtonBase
     public override void Start()
     {
         base.Start();
-        Lock();
     }
 
     // Update is called once per frame
@@ -25,5 +24,11 @@ public class ReturnToWorldBtn : ButtonBase
     public override void OnPointerExit(PointerEventData eventData)
     {
         base.OnPointerExit(eventData);
+    }
+    public override void OnPointerClick(PointerEventData eventData)
+    {
+        base.OnPointerClick(eventData);
+        GameManager.Instance.onEnterLevel(300, LoadType.ToWorld);
+        UIManager.Instance.onClosePopup();
     }
 }

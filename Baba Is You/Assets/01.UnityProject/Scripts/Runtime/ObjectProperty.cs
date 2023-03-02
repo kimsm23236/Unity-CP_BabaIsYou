@@ -148,7 +148,6 @@ public class ObjectProperty : MonoBehaviour
     }
     void Start()
     {
-        DataManager.Instance.ToString();
 
     }
     public void InitObject()
@@ -202,11 +201,61 @@ public class ObjectProperty : MonoBehaviour
         else if(id_ >= 35 && id_ <= 42)
         {
             AddAttribute(9);
+        } 
+    }
+    public void InitObject(int id)
+    {
+        // 오브젝트 데이터 설정
+        data_ = DataManager.Instance.dicObjData[id];
+        id_ = id;
+        GFunc.Log($"data : {data_.name}");
+        // 데이터의 이름으로 타입과 애니메이션을 설정
+        switch(data_.otype)
+        {
+            case "o":
+            oType_ = ObjectType.Object;
+            anim.runtimeAnimatorController = DataManager.Instance.dicObjAnimData[data_.name];
+            anim.SetInteger("Direction", (int)Direction.Right);
+            break;
+            case "t":
+            oType_ = ObjectType.Text;
+            anim.runtimeAnimatorController = DataManager.Instance.toAnimData;
+            anim.SetInteger("id", data_.id);
+            // Text 블록일 경우 기본으로 Push속성을 가지고 있음
+            AddAttribute(3);
+            break;
+            default:
+            break;
         }
-        
-        
-        
-        
+        switch(data_.ttype)
+        {
+            case "n":
+            tType_ = TextType.NONE;
+            break;
+            case "o":
+            tType_ = TextType.Object;
+            break;
+            case "v":
+            tType_ = TextType.Verb;
+            break;
+            case "a":
+            tType_ = TextType.Attribute;
+            break;
+            default:
+            tType_ = TextType.NONE;
+            break;
+        }
+        taggedId = data_.tag;
+        colorSetter.onInitObject(id, oType_);
+        objectTiling.onInitObject();
+        if(id_ == 31)
+        {
+            AddAttribute(8);
+        }
+        else if(id_ >= 35 && id_ <= 42)
+        {
+            AddAttribute(9);
+        } 
     }
     void Update()
     {

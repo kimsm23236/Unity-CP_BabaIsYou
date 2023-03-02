@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
+
 public class ObjectListWindow : EditorWindow
 {
     [SerializeField]
@@ -101,3 +103,4 @@ public class ObjectListWindow : EditorWindow
         return isSeleted;
     }
 }
+#endif

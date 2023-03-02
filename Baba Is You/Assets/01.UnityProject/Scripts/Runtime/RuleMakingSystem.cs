@@ -61,6 +61,7 @@ public class RuleMakingSystem : MonoBehaviour
         gridWidth_ = curLevelGridData.width_;
         gridHeight_ = curLevelGridData.height_;
         isNeedUpdateRule = true;
+        RemoveAllRule();
         InitList();
     }
     public void InitList()
@@ -258,6 +259,10 @@ public class RuleMakingSystem : MonoBehaviour
     void RemoveRule(Rule removed)
     {
         rules.Remove(removed);
+    }
+    public void RemoveAllRule()
+    {
+        rules = new List<Rule>();
     }
 }
 
