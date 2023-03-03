@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GridData
 {
@@ -48,6 +49,10 @@ public class GridController : MonoBehaviour
     }
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            SetGridColor();
+        }
     }
 
     public void CreateDebugGridText()
@@ -103,5 +108,22 @@ public class GridController : MonoBehaviour
         cachedGridObjs = new Transform[gridData.height_, gridData.width_];
         // 일단 그리드 디버그 오브젝트 생성까지 한번에, 나중에 바꿔야됨
         CreateDebugGridText();
+    }
+    public void SetGridColor()
+    {
+        Color newColor = Color.green;
+        newColor.a *= 0.5f;
+        int cnt = 0;
+        for(int y = 0; y < cachedGridObjs.GetLength(0); y++)
+        {
+            for(int x = 0; x < cachedGridObjs.GetLength(1); x++)
+            {
+                cachedGridObjs[y,x].gameObject.GetComponentMust<Image>().color = newColor;
+                if(cnt++ % 2 == 0)
+                    newColor.a *= 0.5f;
+                else
+                    newColor.a *= 2f;
+            }
+        }
     }
 }

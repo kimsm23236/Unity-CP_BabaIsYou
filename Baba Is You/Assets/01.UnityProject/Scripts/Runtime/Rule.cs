@@ -14,6 +14,7 @@ public class Rule
     private ObjectProperty rule_Object_ = default;
     private RuleType ruleType = RuleType.NONE;
     private string ruleName = string.Empty;
+
     private List<ObjectProperty> sbjOBjs = default;
     private RuleMakingSystem ruleMakingSystem = default;
     private bool isApplied = default;

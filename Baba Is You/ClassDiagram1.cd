@@ -1,0 +1,510 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GridController_Edit" Collapsed="true">
+    <Position X="34.25" Y="1.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="GridController_Edit.EventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\01.UnityProject\Scripts\Edit\GridController_Edit.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEQEAAgAACAGAAAAAgAAAAgAAhAAEAAAYAAAAAAAEEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Edit\GridController_Edit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LevelEditorTool" Collapsed="true">
+    <Position X="27.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAACAIAAAEAAAAAEQACAAAAEICAIAAAAAiAgAAAgA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Edit\LevelEditorTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LookAtPoint" Collapsed="true">
+    <Position X="30.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAAAAAAAAAAAIAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Edit\LookAtPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MouseController_LevelEditor" Collapsed="true">
+    <Position X="38.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIACAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Edit\MouseController_LevelEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectListWindow" Collapsed="true">
+    <Position X="27.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAACAAAkAAAAAABgQgEgAAAAgAABAAAACCCAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Edit\ObjectListWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SetGridWindow" Collapsed="true">
+    <Position X="29" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAQQAQAAAAAAAAAAAAAAAQACKAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Edit\SetGridWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SetStagePropertyWindow" Collapsed="true">
+    <Position X="30.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAQABCCAABAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Edit\SetStagePropertyWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tile_Edit" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wASAAAAAACABAQQAAgQAgAFgEBBABACAABCAAIAIAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Edit\Tile_Edit.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GComponent" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\Base\GComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSingleton&lt;T&gt;" Collapsed="true">
+    <Position X="1.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAEAAQAACAAAAAEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\Base\GSingleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GData" Collapsed="true">
+    <Position X="36.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAAAAAAAAAAAAAAAAADAAAAAAIAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\GData+Define.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectData" Collapsed="true">
+    <Position X="25.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAiCQAAAAAAAAAYABAAAAAAAAEAEAAAAACgAAAAgA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\GData+Define.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttributeData" Collapsed="true">
+    <Position X="25.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\GData+Define.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ColorData" Collapsed="true">
+    <Position X="30.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAIAQABAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\GData+Define.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TempStageData" Collapsed="true">
+    <Position X="38.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQACAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\GData+Define.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StageData" Collapsed="true">
+    <Position X="34.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAQACAAAEIAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\GData+Define.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StageProperty" Collapsed="true">
+    <Position X="25.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQACAAAEAAAAAAAAAAAAAhA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\GData+Define.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PriorityQueue&lt;T&gt;" Collapsed="true">
+    <Position X="38.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAEAAAACAAAAAQAAAAABAAAAAAAAAAQIAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\GDataStruct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GDefine" Collapsed="true">
+    <Position X="38.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\GDefine+DefineSymbol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GFunc" Collapsed="true">
+    <Position X="40.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgSgIEAAQBBgAAAIAAhoKAAQAAgAQAAAAAAEAAAAMAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\GFunc+Application.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtrCursor" Collapsed="true">
+    <Position X="11.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQQAAAAECAAAAAAAAAAAQAAAAAAAEAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute\AtrCursor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtrDefeat" Collapsed="true">
+    <Position X="16" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAECAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute\AtrDefeat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtrHot" Collapsed="true">
+    <Position X="18.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAECAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute\AtrHot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtrLevel" Collapsed="true">
+    <Position X="20.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAEAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute\AtrLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtrMelt" Collapsed="true">
+    <Position X="22.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute\AtrMelt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtrPush" Collapsed="true">
+    <Position X="25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute\AtrPush.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtrSink" Collapsed="true">
+    <Position X="4.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAECAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute\AtrSink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtrStop" Collapsed="true">
+    <Position X="7" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute\AtrStop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtrWin" Collapsed="true">
+    <Position X="9.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAECAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute\AtrWin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtrYou" Collapsed="true">
+    <Position X="13.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQACAQQAAAAEAAAAAAAAAAAAQAAAAAAAEAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute\AtrYou.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttributeProperty" Collapsed="true">
+    <Position X="27.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Attribute" Collapsed="true">
+    <Position X="14.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAEAAAgAQAgABEKACABAEAgAAAAAACAAAAAAE=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BgmPlay" Collapsed="true">
+    <Position X="36.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\BgmPlay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ColorSetter" Collapsed="true">
+    <Position X="20.75" Y="1.75" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="ColorSetter.EventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\01.UnityProject\Scripts\Runtime\ColorSetter.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="ColorSetter.EventHandler_TwoParam" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\01.UnityProject\Scripts\Runtime\ColorSetter.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCAAAgAABAAAAAAAAAAAIgGAAAABBIgAAEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\ColorSetter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grid" Collapsed="true">
+    <Position X="30.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABgQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Grid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GridData" Collapsed="true">
+    <Position X="36" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgQAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\GridController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GridController" Collapsed="true">
+    <Position X="32.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEQEAAgAAiAAAAAAAgAAAAAAAgAAEAAAYAAAAAAAkEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\GridController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Live" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAIAAABAQAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Live.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DataManager" Collapsed="true">
+    <Position X="34.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAECAAAAAAAAAAAIAAAAAEgABAAAABQBABQCAAAIA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Manager\DataManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager" Collapsed="true">
+    <Position X="36" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BARQAAAAACAAAAAAAAggACKAAABIAAAAQAACCBFCgEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Manager\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SoundManager" Collapsed="true">
+    <Position X="32.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAkAAABCAAAAAAAAAAAAAAAAFAABCAwCCAAABAQEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Manager\SoundManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StageManager" Collapsed="true">
+    <Position X="36" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACACAAAQAABAAAAACAAABAAAFAQAAAAEAAAEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Manager\StageManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIManager" Collapsed="true">
+    <Position X="32.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQggRAAAKAgAAAAAAAAAAAACABAgAAAQAACAEgEAEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Manager\UIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Move" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAAAAAJAYAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Move.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ObjectController" Collapsed="true">
+    <Position X="36" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAAAICgAAQCoIAJCAQIABYgICwAAgEACAAAAAEI=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\ObjectController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectMovement" Collapsed="true">
+    <Position X="29" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAKAAIAAAAAAAIAAgAAEAAAAAAEAAAABBAEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\ObjectMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GridPosition" Collapsed="true">
+    <Position X="25.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAiA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\ObjectProperty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectProperty" Collapsed="true">
+    <Position X="30.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAICAACAAESAAAhAAAEQAAASAECKIBQBAEAAEAmE=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\ObjectProperty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectTiling" Collapsed="true">
+    <Position X="32.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAIAAAAACAAAAAgQAAIIACgAAgAAAAgAAACAIwQBEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\ObjectTiling.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rule" Collapsed="true">
+    <Position X="25.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADQAADAAAABAIwIAAACAAAAAAAACABgAAiA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Rule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RuleMakingSystem" Collapsed="true">
+    <Position X="27.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gQQAAAoAACAAAAACgIABYISEEAoAAFCCADIKAAAAgEA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\RuleMakingSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tempmove" Collapsed="true">
+    <Position X="38.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAESAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Tempmove.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ButtonBase" Collapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQQAAAAAiAAABAAoAAAAAAEAAAgABAAAAAAASAAAEg=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\UI\ButtonBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ExitGameButton" Collapsed="true">
+    <Position X="13.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAiAAAAAAAAAAAAAAAAAgAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\UI\ExitGameButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PopupUI" Collapsed="true">
+    <Position X="34.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAACAAAAAAAIAACAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\UI\PopupUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RestartLevelBtn" Collapsed="true">
+    <Position X="2.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAiAAAAAAAAAAAAAAAAAgAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\UI\RestartLevelBtn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResumeBtn" Collapsed="true">
+    <Position X="4.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAiAAAAAAAAAAAAAAAAAgAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\UI\ResumeBtn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReturnToMenuBtn" Collapsed="true">
+    <Position X="6.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAiAAAAAAAAAAAAAAAAAgAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\UI\ReturnToMenuBtn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReturnToWorldBtn" Collapsed="true">
+    <Position X="9" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAiAAAAAAAAAAAAAAAAAgAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\UI\ReturnToWorldBtn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StartGameButton" Collapsed="true">
+    <Position X="11.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAiAAAAAAAAAAAAAAAAAgAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\UI\StartGameButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ICommand" Collapsed="true">
+    <Position X="25.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Interface\ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IMouse" Collapsed="true">
+    <Position X="27.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgABAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Interface\IMouse.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Sound" Collapsed="true">
+    <Position X="34.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAgAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Global\GData+Define.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AtrType" Collapsed="true">
+    <Position X="25.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Attribute.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="LoadType" Collapsed="true">
+    <Position X="29" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAQCAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Manager\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Direction" Collapsed="true">
+    <Position X="27.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAQAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\ObjectProperty.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ObjectType" Collapsed="true">
+    <Position X="30.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAQAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\ObjectProperty.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TextType" Collapsed="true">
+    <Position X="36" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAACAAAgAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\ObjectProperty.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RuleType" Collapsed="true">
+    <Position X="32.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAACAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.UnityProject\Scripts\Runtime\Rule.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
